@@ -105,7 +105,12 @@
     width: 100%;
     height: 100%;
   }
-  
+  .header .logo h1 {
+    font-size: 28px;
+    margin: 0;
+    font-weight: 500;
+    color: var(--heading-color);
+}
   /* Responsive adjustments */
   @media (max-width: 576px) {
     .chat-popup {
@@ -198,13 +203,13 @@
       <a href="index.html" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="https://itcelltreasury.github.io/try/assets/img/logo.png" alt="IT Cell Logo">
-        <h1 class="sitename">IT Cell HD</h1>
+        <h1 class="sitename">IT Cell HelpDesk</h1>
       </a>
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Home<br></a></li>
           <li><a href="#about">About</a></li>
-          <li><a href="#services">App-Services</a></li>
+          <li><a href="#services">Services</a></li>
           <li class="dropdown"><a href="#"><span>Downloads</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="https://localhost:8020/signer/isInitialized">Add Browser Exception for DS</a></li>
@@ -560,7 +565,7 @@ Introducing a  new Chatbot service for  treasury related queries            </p>
               <i class="bi bi-coin icon"></i>
               <h3>Token Status</h3>
               <p>Know Current DT Token Que Status -Developed by IT Cell HelpDesk</p>
-              <a target="_blank" href="./token" class="read-more stretched-link"><span></span> <i class="bi bi-arrow-right"></i>View </a>
+              <a target="_blank" href="./token" class="read-more stretched-link"><span>View</span> <i class="bi bi-arrow-right"></i> </a>
             </div>
           </div><!-- End Service Item -->
         
@@ -765,7 +770,7 @@ Introducing a  new Chatbot service for  treasury related queries            </p>
 
   <div id="chat-popup" class="chat-popup">
    
-    <iframe src="/try/chat/chat.html" frameborder="0"></iframe>
+    <iframe src="https://itcelltreasury.github.io/try/chat/chat.html" frameborder="0"></iframe>
   </div>
 
   <!-- Vendor JS Files -->
