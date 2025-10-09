@@ -760,28 +760,35 @@
         <div class="col-lg-7" data-aos="fade-left">
           <div class="contact-form">
             <h3 class="mb-4">Send us a Message</h3>
-            <form id="contactForm">
-              <div class="row">
-                <div class="col-md-6">
-                  <input type="text" class="form-control" placeholder="Your Name" required>
-                </div>
-                <div class="col-md-6">
-                  <input type="email" class="form-control" placeholder="Your Email" required>
-                </div>
-                <div class="col-12">
-                  <input type="text" class="form-control" placeholder="Mobile number (must be start with +91 format)" required>
-                </div>
-                <div class="col-12">
-                  <input type="text" class="form-control" placeholder="Subject" required>
-                </div>
-                <div class="col-12">
-                  <textarea class="form-control" rows="5" placeholder="Message" required></textarea>
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                </div>
-              </div>
-            </form>
+    		<form id="contactForm" method="post" class="php-email-form aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" onsubmit="submitForm(event)">
+  <div class="row gy-4">
+    <div class="col-md-12">
+     <input type="text" name="name" class="form-control" placeholder="Your Name" required="" oninput="this.value = this.value.toUpperCase()">
+    </div>
+    <div class="col-md-12">
+      <input type="email" class="form-control" name="email" placeholder="Your Email" id="emailInput" autocomplete="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA0-9.-]+\.[a-zA-Z]{2,}$">
+    </div>
+    <div class="col-md-8">
+      <input type="text" class="form-control" name="phone" placeholder="Mobile number (must be start with +91 format)" id="phoneInput" required  title="Phone number must start with +91 followed by 10 digits.">
+    </div>
+    <div class="col-12">
+      <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+    </div>
+    <div class="col-12">
+      <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+    </div>
+    <div class="col-12 text-center">
+      <!-- Color Dot Spinner hidden by default -->
+      <div id="spinner" class="dot-spinner" style="display: none;">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <!-- Submit Button -->
+      <button type="submit" id="submitBtn" class="btn btn-primary mt-3">Send Message</button>
+    </div>
+  </div></div>
+</form>  
           </div>
         </div>
       </div>
