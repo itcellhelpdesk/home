@@ -879,20 +879,7 @@
       document.getElementById('chatBox').style.display = 'none';
     });
     
-    // Contact form submission
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Show success message
-      Swal.fire({
-        title: 'Success!',
-        text: 'Your message has been sent successfully.',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      }).then(() => {
-        // Reset form
-        document.getElementById('contactForm').reset();
-      });
-    });
+
     
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
