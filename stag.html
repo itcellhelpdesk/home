@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- SEO Meta Tags -->
+  <title>IT Cell HelpDesk | Online Services Support | Trivandrum</title>
+  <meta name="description" content="IT Cell HelpDesk provides technical assistance for online services, pension portals, UTR conversion, token status & DSC signer installation in Trivandrum.">
+  <meta name="keywords" content="IT HelpDesk, Online Services Support, Pension Portal Help, UTR Format, DSC Signer, Token Status, Trivandrum IT Support">
+  <meta name="author" content="IT Cell HelpDesk">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags for Social Media -->
+  <meta property="og:title" content="IT Cell HelpDesk | Online Services Support">
+  <meta property="og:description" content="Get technical assistance for online services, pension portals, UTR conversion & DSC signer installation in Trivandrum.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://itcellhelpdesk.github.io/home/index.html">
+  <meta property="og:image" content="https://itcelltreasury.github.io/try/assets/img/hero-img.png">
+  <meta property="og:site_name" content="IT Cell HelpDesk">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="IT Cell HelpDesk | Online Services Support">
+  <meta name="twitter:description" content="Get technical assistance for online services, pension portals, UTR conversion & DSC signer installation in Trivandrum.">
+  <meta name="twitter:image" content="https://itcelltreasury.github.io/try/assets/img/hero-img.png">
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://itcellhelpdesk.github.io/home/index.html">
+  
+  <!-- Structured Data / Schema.org Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "IT Cell HelpDesk",
+    "description": "Technical support services for online portals and digital services",
+    "url": "https://itcellhelpdesk.github.io/home/index.html",
+    "provider": {
+      "@type": "Organization",
+      "name": "IT Cell HelpDesk"
+    },
+    "serviceType": "IT Support",
+    "areaServed": {
+      "@type": "City",
+      "name": "Trivandrum"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "IT Support Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "UTR Format Conversion",
+            "description": "Convert old format UTR to new 22 digit format"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Online Appointment System",
+            "description": "Book appointments for services"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Token Status Check",
+            "description": "Check current token queue status"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "DSC Signer Support",
+            "description": "Digital Signature Certificate installation and troubleshooting"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://itcelltreasury.github.io/try/assets/img/logo.png">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #e74c3c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+    }
+    
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: #333;
+      padding-top: 76px;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+    }
+    
+    /* Navigation */
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .navbar-brand img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      color: var(--dark);
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      color: var(--secondary);
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 100px 0;
+    }
+    
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-bottom: 30px;
+    }
+    
+    .btn-hero {
+      background-color: var(--secondary);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .btn-hero:hover {
+      background-color: #2980b9;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .btn-outline-hero {
+      border: 2px solid var(--secondary);
+      color: var(--secondary);
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .btn-outline-hero:hover {
+      background-color: var(--secondary);
+      color: white;
+      transform: translateY(-3px);
+    }
+    
+    /* Section Styling */
+    .section {
+      padding: 80px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .section-title p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Service Cards */
+    .service-card {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+      height: 100%;
+      text-align: center;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--secondary);
+      font-size: 30px;
+    }
+    
+    .service-card h3 {
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .service-card p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    /* Stats Section */
+    .stats-section {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .stat-item {
+      padding: 20px;
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 10px;
+    }
+    
+    .stat-text {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    
+    /* About Section */
+    .about-content h3 {
+      color: var(--secondary);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    
+    .about-content h2 {
+      color: var(--primary);
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+    
+    .about-content p {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .btn-primary {
+      background-color: var(--secondary);
+      border-color: var(--secondary);
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2980b9;
+      border-color: #2980b9;
+    }
+    
+    /* Contact Section */
+    .contact-info h3, .contact-form h3 {
+      color: var(--primary);
+      margin-bottom: 30px;
+    }
+    
+    .contact-item {
+      display: flex;
+      margin-bottom: 25px;
+    }
+    
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+      font-size: 20px;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+    
+    .contact-details h4 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+    
+    .contact-details p {
+      color: #666;
+      margin: 0;
+    }
+    
+    .contact-form .form-control {
+      padding: 12px 15px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+    
+    .contact-form .form-control:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 0 20px;
+    }
+    
+    .footer h4 {
+      color: white;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+    }
+    
+    .footer p, .footer a {
+      color: #bbb;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: var(--secondary);
+    }
+    
+    .social-links a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      margin-right: 10px;
+      transition: all 0.3s;
+    }
+    
+    .social-links a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      margin-top: 40px;
+      text-align: center;
+      color: #999;
+    }
+    
+    /* Chat Widget */
+    .chat-widget {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+    }
+    
+    .chat-button {
+      width: 60px;
+      height: 60px;
+      background: var(--secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+    }
+    
+    .chat-button:hover {
+      background: #2980b9;
+      transform: scale(1.1);
+    }
+    
+    .chat-box {
+      position: absolute;
+      bottom: 70px;
+      right: 0;
+      width: 350px;
+      height: 500px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      display: none;
+      overflow: hidden;
+    }
+    
+    .chat-header {
+      background: var(--primary);
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .chat-close {
+      cursor: pointer;
+    }
+    
+    .chat-iframe {
+      width: 100%;
+      height: calc(100% - 50px);
+      border: none;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section {
+        padding: 60px 0;
+      }
+      
+      .chat-box {
+        width: 300px;
+        height: 400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="https://itcellhelpdesk.github.io/home/index.html">
+        <img src="https://itcelltreasury.github.io/try/assets/img/logo.png" alt="IT Cell HelpDesk Logo">
+        IT Cell HelpDesk
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="border: var(--bs-border-width) solid rgb(0 0 0 / 0%);" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#services">Services</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="downloadsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Downloads
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="https://localhost:8020/signer/isInitialized">Add Browser Exception for DS</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="#">DSC-Signer</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="https://bit.ly/3Zsu247">Windows</a></li>
+                  <li><a class="dropdown-item" href="https://bit.ly/403VPIc">Linux</a></li>
+                  <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/1ud8QhFol8JsPSQClAvcf2TBfCmrlKcKw?usp=drive_link">eOffice</a></li>
+                  <li><a class="dropdown-item" href="https://bit.ly/4jN4d5V">DSC Root CA</a></li>
+                </ul>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="#">Install JRE</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="https://bit.ly/3Zwd2tT">Windows (64-bit)</a></li>
+                  <li><a class="dropdown-item" href="https://bit.ly/4kBfFmx">Windows (32-bit)</a></li>
+                </ul>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="https://drive.google.com/file/d/1h5woN0Ut4tEpR1-dbZblpa33mi_f0DRZ/view?usp=sharing">KLDTR- AEBAS App Drive</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="contactDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Contact
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#contact">IT Cell</a></li>
+              <li><a class="dropdown-item" href="trylist.html">Contact List</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="linksDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Links
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="https://itcelltreasury.github.io/try/chat/">Chat with us</a></li>
+              <li><a class="dropdown-item" href="trylist.html">Contact List</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <img src="https://itcelltreasury.github.io/try/assets/img/hero-img.png" class="img-fluid animated" alt="IT Cell HelpDesk - Technical Support Services">
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <h1>IT Cell HelpDesk - Technical Support Services</h1>
+          <p>We provide technical assistance for online services, pension portals, and digital document processing. Our team is dedicated to helping you navigate digital services with ease.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="./ticket" target="_blank" class="btn btn-hero">Book Appointment <i class="fas fa-arrow-right ms-2"></i></a>
+            <a href="#" class="btn btn-outline-hero"><i class="fas fa-play-circle me-2"></i> Watch Video</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Our Technical Support Services</h2>
+        <p>Comprehensive IT solutions for online services and digital document processing</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-exchange-alt"></i>
+            </div>
+            <h3>UTR Format Converter</h3>
+            <p>Convert old format UTR to new 22 digit format with our easy conversion tool.</p>
+            <a href="./utr" target="_blank" class="btn btn-outline-primary mt-3">Use Converter</a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-ticket-alt"></i>
+            </div>
+            <h3>Appointment System</h3>
+            <p>Book appointments for services with our online ticket and queue management system.</p>
+            <a href="./ticket/" target="_blank" class="btn btn-outline-primary mt-3">Book Now</a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-list-ol"></i>
+            </div>
+            <h3>Token Status</h3>
+            <p>Check current token queue status for various services - Developed by IT Cell HelpDesk.</p>
+            <a href="./token" target="_blank" class="btn btn-outline-primary mt-3">Check Status</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="section stats-section">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="stat-item">
+            <div class="stat-number">157</div>
+            <div class="stat-text">Satisfied Clients</div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="stat-item">
+            <div class="stat-number">43</div>
+            <div class="stat-text">Support Projects</div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="stat-item">
+            <div class="stat-number">5000+</div>
+            <div class="stat-text">Hours Of Support</div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+          <div class="stat-item">
+            <div class="stat-number">15</div>
+            <div class="stat-text">IT Professionals</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="about-image">
+            <img src="https://itcelltreasury.github.io/try/assets/img/about.png" class="img-fluid" alt="IT Cell HelpDesk Team">
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="about-content">
+            <h3>Who We Are</h3>
+            <h2>IT Cell HelpDesk Team</h2>
+            <p>Our IT team dedicates their expertise to providing technical support for online services and digital document processing systems. We ensure seamless operations and secure management of digital resources.</p>
+            <p>We are committed to providing reliable IT solutions and support for various online services, helping to streamline processes and improve service delivery to the public.</p>
+            <a href="#" class="btn btn-primary mt-3">Learn More <i class="fas fa-arrow-right ms-2"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chatbot Section -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="about-content">
+            <h3>AI Support Assistant</h3>
+            <h2>IT Cell ChatBot</h2>
+            <p>Introducing our new Chatbot service for technical queries related to online services. Our AI-powered assistant is available 24/7 to help with common questions and provide instant support.</p>
+            <a href="https://itcelltreasury.github.io/bot/" class="btn btn-primary mt-3">Try ChatBot <i class="fas fa-arrow-right ms-2"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="about-image">
+            <img src="https://itcelltreasury.github.io/try/assets/img/itcell-chatbot.jpg" class="img-fluid" alt="IT Cell ChatBot - AI Support Assistant">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-title" data-aos="fade-up">
+        <h2>Contact Us</h2>
+        <p>Get in Touch with Our Technical Support Team</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-5 mb-4" data-aos="fade-right">
+          <div class="contact-info">
+            <h3 class="mb-4">Contact Information</h3>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Our Location</h4>
+                <p>IT Cell HelpDesk, near SBI building.<br>Statue Jn, Trivandrum-695001</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Call Us</h4>
+                <p>+91 8078491708<br><small>[Working hours only]</small></p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Email Us</h4>
+                <p>itcell.dto@gmail.com</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="contact-details">
+                <h4>Service Hours</h4>
+                <p>Monday - Saturday<br>[10.15AM - 05:15PM]</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7" data-aos="fade-left">
+          <div class="contact-form">
+            <h3 class="mb-4">Send Us Your Query</h3>
+            <form id="contactForm" method="post" class="php-email-form" onsubmit="submitForm(event)">
+              <div class="row gy-4">
+                <div class="col-md-12">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="" oninput="this.value = this.value.toUpperCase()">
+                </div>
+                <div class="col-md-12">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" id="emailInput" autocomplete="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA0-9.-]+\.[a-zA-Z]{2,}$">
+                </div>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" name="phone" placeholder="Mobile number (must be start with +91 format)" id="phoneInput" required title="Phone number must start with +91 followed by 10 digits.">
+                </div>
+                <div class="col-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                </div>
+                <div class="col-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Your Message or Technical Query" required=""></textarea>
+                </div>
+                <div class="col-12 text-center">
+                  <!-- Color Dot Spinner hidden by default -->
+                  <div id="spinner" class="dot-spinner" style="display: none;">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                  </div>
+                  <!-- Submit Button -->
+                  <button type="submit" id="submitBtn" class="btn btn-primary mt-3">Submit Query</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <h4>IT Cell HelpDesk</h4>
+          <p>Providing comprehensive technical support and IT solutions for online services and digital document processing in Trivandrum.</p>
+          <div class="mt-3">
+            <p><i class="fas fa-map-marker-alt me-2"></i> Trivandrum, Kerala, India</p>
+            <p><i class="fas fa-phone me-2"></i> +91 8078491708</p>
+            <p><i class="fas fa-envelope me-2"></i> corehelptvm@gmail.com</p>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h4>Quick Links</h4>
+          <ul class="footer-links list-unstyled">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h4>Our Services</h4>
+          <ul class="footer-links list-unstyled">
+            <li><a href="./utr">UTR Format Converter</a></li>
+            <li><a href="./ticket">Appointment System</a></li>
+            <li><a href="./token">Token Status</a></li>
+            <li><a href="https://itcelltreasury.github.io/bot/">ChatBot Service</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <h4>Follow Us</h4>
+          <div class="social-links mt-3">
+            <a href="#" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Follow us on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>© Copyright <strong>IT Cell HelpDesk</strong>. All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chat Widget -->
+  <div class="chat-widget">
+    <div class="chat-button" id="chatButton" aria-label="Open Chat Support">
+      <i class="fas fa-comments"></i>
+    </div>
+    <div class="chat-box" id="chatBox">
+      <div class="chat-header">
+        <span>IT Cell HelpDesk</span>
+        <span class="chat-close" id="chatClose" aria-label="Close chat"><i class="fas fa-times"></i></span>
+      </div>
+      <iframe src="https://itcelltreasury.github.io/try/chat/chat.html" class="chat-iframe" title="IT Cell Chat Support"></iframe>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    // Initialize AOS after it's loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      AOS.init({
+        duration: 1000,
+        once: true
+      });
+      
+      // Chat widget functionality
+      const chatButton = document.getElementById('chatButton');
+      const chatBox = document.getElementById('chatBox');
+      const chatClose = document.getElementById('chatClose');
+      
+      chatButton.addEventListener('click', function() {
+        chatBox.style.display = 'block';
+      });
+      
+      chatClose.addEventListener('click', function() {
+        chatBox.style.display = 'none';
+      });
+    });
+    
+    // Form submission function
+    function submitForm(event) {
+      event.preventDefault();
+      
+      // Show spinner
+      document.getElementById('spinner').style.display = 'block';
+      document.getElementById('submitBtn').style.display = 'none';
+      
+      // Simulate form submission
+      setTimeout(function() {
+        // Hide spinner
+        document.getElementById('spinner').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'block';
+        
+        // Show success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Message Sent!',
+          text: 'Your query has been submitted successfully. We will get back to you soon.',
+          confirmButtonColor: '#3498db'
+        });
+        
+        // Reset form
+        document.getElementById('contactForm').reset();
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
