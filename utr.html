@@ -263,26 +263,59 @@
                         <label for="utr-input" class="form-label fw-bold">Enter UTR Number</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="utr-input" placeholder="e.g., RBISH0123456789" maxlength="50">
-                             <div class="invalid-feedback">
-        Please provide a valid UTR number (minimum 16 characters).
-    </div>
-                            <script>
-// Bootstrap form validation
-(function() {
-    'use strict';
-    window.addEventListener('load', function() {
-        var forms = document.getElementsByClassName('needs-validation');
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
+                           <div id="utr-error" class="error-message" style="color: red; display: none;">
+    UTR number must be at least 16 characters long (currently: <span id="char-count">0</span>/16)
+                           </div>
+ <script>
+const utrInput = document.getElementById('utr-input');
+const errorDiv = document.getElementById('utr-error');
+const charCount = document.getElementById('char-count');
+
+utrInput.addEventListener('blur', validateUtr);
+utrInput.addEventListener('input', updateCharCount);
+
+function validateUtr() {
+    const value = this.value.trim();
+    const isValid = value.length >= 16;
+    
+    if (value.length > 0 && !isValid) {
+        showError();
+        return false;
+    } else {
+        hideError();
+        return true;
+    }
+}
+
+function updateCharCount() {
+    const value = this.value.trim();
+    charCount.textContent = value.length;
+    
+    // Hide error when user starts typing (optional)
+    if (value.length > 0) {
+        hideError();
+    }
+}
+
+function showError() {
+    errorDiv.style.display = 'block';
+    utrInput.style.borderColor = 'red';
+    utrInput.style.backgroundColor = '#fff0f0';
+}
+
+function hideError() {
+    errorDiv.style.display = 'none';
+    utrInput.style.borderColor = '';
+    utrInput.style.backgroundColor = '';
+}
+
+// Form submission validation
+document.querySelector('form')?.addEventListener('submit', function(e) {
+    if (!validateUtr.call(utrInput)) {
+        e.preventDefault();
+        utrInput.focus();
+    }
+});
 </script>
                         </div>
                     </div>
