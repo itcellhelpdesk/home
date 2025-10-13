@@ -73,7 +73,6 @@
             background-color: #fff9e6;
             border-left: 4px solid #f1c40f;
             padding: 15px;
-         
             border-radius: 0 6px 6px 0;
         }
         
@@ -139,6 +138,24 @@
         
         .sheet-selector {
             min-width: 180px;
+        }
+        
+        /* Validation styles */
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        .is-invalid {
+            border-color: #dc3545 !important;
+            background-color: #fff0f0 !important;
+        }
+        
+        .is-valid {
+            border-color: #198754 !important;
+            background-color: #f0fff0 !important;
         }
         
         /* New responsive styles */
@@ -230,7 +247,6 @@
         <div class="card">
             <div class="card-header text-center">
                 <h3 class="mb-2">UTR New Format Search</h3>
-             
             </div>
             
             <div class="card-body">
@@ -241,7 +257,6 @@
                     </div>
                     <ol class="mb-0">
                         <li>Select the transaction date range from dropdown</li>
-                       
                         <li>Enter UTR with RBISH format and click Search</li>
                         <li>Search New UTR with BiMS > UTR Search</li>
                     </ol>
@@ -263,60 +278,9 @@
                         <label for="utr-input" class="form-label fw-bold">Enter UTR Number</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="utr-input" placeholder="e.g., RBISH0123456789" maxlength="50">
-                           <div id="utr-error" class="error-message" style="color: red; display: none;">
-    UTR number must be at least 16 characters long (currently: <span id="char-count">0</span>/16)
-                           </div>
- <script>
-const utrInput = document.getElementById('utr-input');
-const errorDiv = document.getElementById('utr-error');
-const charCount = document.getElementById('char-count');
-
-utrInput.addEventListener('blur', validateUtr);
-utrInput.addEventListener('input', updateCharCount);
-
-function validateUtr() {
-    const value = this.value.trim();
-    const isValid = value.length >= 16;
-    
-    if (value.length > 0 && !isValid) {
-        showError();
-        return false;
-    } else {
-        hideError();
-        return true;
-    }
-}
-
-function updateCharCount() {
-    const value = this.value.trim();
-    charCount.textContent = value.length;
-    
-    // Hide error when user starts typing (optional)
-    if (value.length > 0) {
-        hideError();
-    }
-}
-
-function showError() {
-    errorDiv.style.display = 'block';
-    utrInput.style.borderColor = 'red';
-    utrInput.style.backgroundColor = '#fff0f0';
-}
-
-function hideError() {
-    errorDiv.style.display = 'none';
-    utrInput.style.borderColor = '';
-    utrInput.style.backgroundColor = '';
-}
-
-// Form submission validation
-document.querySelector('form')?.addEventListener('submit', function(e) {
-    if (!validateUtr.call(utrInput)) {
-        e.preventDefault();
-        utrInput.focus();
-    }
-});
-</script>
+                        </div>
+                        <div class="error-message" id="utr-error">
+                            <i class="fas fa-exclamation-triangle me-1"></i>UTR number must be at least 16 characters long (currently: <span id="char-count">0</span>/16)
                         </div>
                     </div>
                     
@@ -418,7 +382,8 @@ document.querySelector('form')?.addEventListener('submit', function(e) {
             const instructionsDiv = document.getElementById('instructions');
             const closeInstructionsBtn = document.getElementById('close-instructions');
             const showInstructionsBtn = document.getElementById('show-instructions');
-            
+            const utrError = document.getElementById('utr-error');
+            const charCount = document.getElementById('char-count');
             
             let searchHistory = JSON.parse(localStorage.getItem('utrSearchHistory')) || [];
             let instructionsHidden = localStorage.getItem('instructionsHidden') === 'true';
@@ -433,6 +398,7 @@ document.querySelector('form')?.addEventListener('submit', function(e) {
             closeInstructionsBtn.addEventListener('click', hideInstructions);
             showInstructionsBtn.addEventListener('click', showInstructions);
             
+            // UTR Input validation events
             utrInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     performLookup();
@@ -443,6 +409,10 @@ document.querySelector('form')?.addEventListener('submit', function(e) {
                 // Auto-format to uppercase
                 this.value = this.value.toUpperCase();
                 
+                // Update character count
+                const value = this.value.trim();
+                charCount.textContent = value.length;
+                
                 // Extract and show UTR preview
                 const extracted = extractUTR(this.value);
                 if (extracted && extracted !== this.value) {
@@ -452,8 +422,16 @@ document.querySelector('form')?.addEventListener('submit', function(e) {
                     extractedUtrDiv.style.display = 'none';
                 }
                 
+                // Clear validation when user starts typing
+                clearValidation();
+                
                 // Enable/disable lookup button based on input and sheet selection
                 updateLookupButtonState();
+            });
+            
+            // Minimum length validation on blur (lost focus)
+            utrInput.addEventListener('blur', function() {
+                validateUtrLength();
             });
             
             sheetSelect.addEventListener('change', function() {
@@ -468,6 +446,49 @@ document.querySelector('form')?.addEventListener('submit', function(e) {
                 const hasInput = utrInput.value.trim();
                 const hasSheet = sheetSelect.value && sheetSelect.value !== '';
                 lookupBtn.disabled = !hasInput || !hasSheet;
+            }
+            
+            // Validate UTR minimum length
+            function validateUtrLength() {
+                const value = utrInput.value.trim();
+                
+                if (value.length === 0) {
+                    clearValidation();
+                    return true;
+                }
+                
+                const isValid = value.length >= 16;
+                
+                if (!isValid) {
+                    showValidationError();
+                    return false;
+                } else {
+                    showValidationSuccess();
+                    return true;
+                }
+            }
+            
+            // Show validation error
+            function showValidationError() {
+                utrInput.classList.add('is-invalid');
+                utrInput.classList.remove('is-valid');
+                utrError.style.display = 'block';
+                lookupBtn.disabled = true;
+            }
+            
+            // Show validation success
+            function showValidationSuccess() {
+                utrInput.classList.remove('is-invalid');
+                utrInput.classList.add('is-valid');
+                utrError.style.display = 'none';
+                updateLookupButtonState();
+            }
+            
+            // Clear validation
+            function clearValidation() {
+                utrInput.classList.remove('is-invalid', 'is-valid');
+                utrError.style.display = 'none';
+                updateLookupButtonState();
             }
             
             // Fetch available sheets from Google Sheets
@@ -509,6 +530,14 @@ document.querySelector('form')?.addEventListener('submit', function(e) {
                     return;
                 }
                 
+                // Add default "Select date range" option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = "";
+                defaultOption.textContent = "Select date range";
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                sheetSelect.appendChild(defaultOption);
+                
                 // Sort sheets to put most recent first (assuming newer sheets have later names)
                 const sortedSheets = sheets.sort().reverse();
                 
@@ -519,10 +548,7 @@ document.querySelector('form')?.addEventListener('submit', function(e) {
                     sheetSelect.appendChild(option);
                 });
                 
-                // Auto-select the first sheet
-                if (sortedSheets.length > 0) {
-                    sheetSelect.value = sortedSheets[0];
-                }
+                // REMOVED: Auto-select the first sheet - now user must manually select
             }
             
             // Extract UTR from various formats
@@ -562,11 +588,20 @@ document.querySelector('form')?.addEventListener('submit', function(e) {
                 
                 if (!selectedSheet) {
                     showStatus('Please select a date range', 'error');
+                    sheetSelect.focus();
                     return;
                 }
                 
                 if (!inputValue) {
                     showStatus('Please enter a UTR value', 'error');
+                    utrInput.focus();
+                    return;
+                }
+                
+                // Validate UTR length before proceeding
+                if (!validateUtrLength()) {
+                    showStatus('UTR number must be at least 16 characters long', 'error');
+                    utrInput.focus();
                     return;
                 }
                 
@@ -720,9 +755,11 @@ document.querySelector('form')?.addEventListener('submit', function(e) {
             // Clear search
             function clearSearch() {
                 utrInput.value = '';
+                sheetSelect.value = ""; // Reset to default option
                 resultSection.style.display = 'none';
                 extractedUtrDiv.style.display = 'none';
                 statusDiv.style.display = 'none';
+                clearValidation();
                 updateLookupButtonState();
                 utrInput.focus();
             }
