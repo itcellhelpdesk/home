@@ -208,37 +208,36 @@
                 return null;
             }
             
-            // Populate sheet dropdown
-            function populateSheetDropdown(sheets) {
-                sheetSelect.innerHTML = '';
-                
-                if (sheets.length === 0) {
-                    sheetSelect.innerHTML = '<option value="" selected disabled>No sheets available</option>';
-                    return;
-                }
-                
-                // Add default "Select date range" option
-                const defaultOption = document.createElement('option');
-                defaultOption.value = "";
-                defaultOption.textContent = "Select date range";
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                sheetSelect.appendChild(defaultOption);
-                
-                // Sort sheets to put most recent first (assuming newer sheets have later names)
-                const sortedSheets = sheets.sort((a, b) => {
-                    // Custom sorting logic if needed
-                    return a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'});
-                }).reverse();
-                
-                sortedSheets.forEach(sheet => {
-                    const option = document.createElement('option');
-                    option.value = sheet.name;
-                    option.textContent = sheet.name;
-                    option.dataset.sheetId = sheet.id; // Store the sheet ID in data attribute
-                    sheetSelect.appendChild(option);
-                });
-            }
+          // Populate sheet dropdown
+function populateSheetDropdown(sheets) {
+    sheetSelect.innerHTML = '';
+    
+    if (sheets.length === 0) {
+        sheetSelect.innerHTML = '<option value="" selected disabled>No sheets available</option>';
+        return;
+    }
+    
+    // Add default "Select date range" option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = "";
+    defaultOption.textContent = "Select date range";
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    sheetSelect.appendChild(defaultOption);
+    
+    // Sort sheets in ascending order
+    const sortedSheets = sheets.sort((a, b) => {
+        return a.name.localeCompare(b.name, undefined, {numeric: true, sensitivity: 'base'});
+    });
+    
+    sortedSheets.forEach(sheet => {
+        const option = document.createElement('option');
+        option.value = sheet.name;
+        option.textContent = sheet.name;
+        option.dataset.sheetId = sheet.id; // Store the sheet ID in data attribute
+        sheetSelect.appendChild(option);
+    });
+}
             
             // Extract UTR from various formats
             function extractUTR(input) {
