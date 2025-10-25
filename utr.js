@@ -356,34 +356,37 @@ function populateSheetDropdown(sheets) {
                 return { found: false, message: 'UTR not found in selected range' };
             }
             
-            // Display search result
-            function displayResult(sheetName, inputValue, extractedUTR, result) {
-                selectedSheetElement.textContent = sheetName;
-                searchUtr.textContent = inputValue;
-                extractedUtrDisplay.textContent = extractedUTR;
-                
-                if (result.found) {
-                    resultStatus.textContent = 'Found';
-                    resultStatus.className = 'badge rounded-pill status-found';
-                    newUtr.textContent = result.newUTR;
-                    resultDate.textContent = formatDate(result.date);
-                    fullCellValue.textContent = result.fullCellValue || 'N/A';
-                    resultMessage.textContent = result.message;
-                    resultMessage.style.color = '#155724';
-                } else {
-                    resultStatus.textContent = 'Not Found';
-                    resultStatus.className = 'badge rounded-pill status-not-found';
-                    newUtr.textContent = 'N/A';
-                    resultDate.textContent = 'N/A';
-                    fullCellValue.textContent = 'N/A';
-                    resultMessage.textContent = result.message;
-                    resultMessage.style.color = '#721c24';
-                }
-                
-                resultSection.style.display = 'block';
-                showStatus(result.message, result.found ? 'success' : 'error');
-                lookupBtn.disabled = false;
-            }
+      // Display search result
+function displayResult(sheetName, inputValue, extractedUTR, result) {
+    selectedSheetElement.textContent = sheetName;
+    searchUtr.textContent = inputValue;
+    extractedUtrDisplay.textContent = extractedUTR;
+    
+    if (result.found) {
+        resultStatus.textContent = 'Found';
+        resultStatus.className = 'badge rounded-pill status-found';
+        newUtr.textContent = result.newUTR;
+        resultDate.textContent = formatDate(result.date);
+        fullCellValue.textContent = result.fullCellValue || 'N/A';
+        resultMessage.textContent = result.message;
+        resultMessage.style.color = '#155724';
+    } else {
+        resultStatus.textContent = 'Not Found';
+        resultStatus.className = 'badge rounded-pill status-not-found';
+        // Set default format when UTR is not found
+        newUtr.textContent = `/XUTR/${extractedUTR}`;
+        newUtr.style.color = 'red';
+        newUtr.style.fontWeight = 'bold';
+        resultDate.textContent = 'N/A';
+        fullCellValue.textContent = 'N/A';
+        resultMessage.textContent = result.message;
+        resultMessage.style.color = '#721c24';
+    }
+    
+    resultSection.style.display = 'block';
+    showStatus(result.message, result.found ? 'success' : 'error');
+    lookupBtn.disabled = false;
+}
             
             // Add search to history
             function addToHistory(sheetName, inputValue, extractedUTR, result) {
