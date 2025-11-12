@@ -455,141 +455,136 @@
 
   <!-- Main Content -->
   <main style="padding-top: 100px;">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Document Repository</h2>
-        <p>Search and access our collection of manuals, orders, and forms</p>
-      </div>
-      
-      <div class="repository-container" data-aos="fade-up" data-aos-delay="100">
-        <div class="repository-header">
-          <h1>Document Repository</h1>
-          <p class="subtitle">IT Cell HelpDesk</p>
-          <button class="upload-btn" id="uploadBtn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-              <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-            </svg>
-            Upload File
-          </button>
-        </div>
+      <div class="container">
+        <header>
+            <h1>Document Repository</h1>
+            <p class="subtitle">IT Cell HelpDesk</p>
+            <button class="upload-btn" id="uploadBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                </svg>
+                Upload File
+            </button>
+        </header>
         
         <div class="tabs-container">
-          <ul class="tabs">
-            <li class="tab active" data-tab="manuals">User Manuals & Guides</li>
-            <li class="tab" data-tab="orders">Orders & Circulars</li>
-            <li class="tab" data-tab="forms">Forms & Proforma</li>
-          </ul>
+            <ul class="tabs">
+                <li class="tab active" data-tab="manuals">User Manuals & Guides</li>
+                <li class="tab" data-tab="orders">Orders & Circulars</li>
+                <li class="tab" data-tab="forms">Forms & Proforma</li>
+            </ul>
         </div>
         
         <!-- User Manuals & Guides Tab -->
         <div class="tab-content active" id="manuals">
-          <div class="table-container">
-            <div class="search-container">
-              <div class="search-box">
-                <input type="text" id="searchInputManuals" placeholder="Search manuals by name or type...">
-                <span class="search-icon">🔍</span>
-              </div>
-              <div class="table-info" id="tableInfoManuals"></div>
+            <div class="table-container">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInputManuals" placeholder="Search manuals by name or type...">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="table-info" id="tableInfoManuals"></div>
+                </div>
+                
+                <div class="loading" id="loadingMessageManuals">
+                    Loading manuals...
+                </div>
+                
+                <div class="error" id="errorMessageManuals" style="display: none;">
+                    Error loading manuals. Please check your connection and try again.
+                </div>
+                
+                <table id="filesTableManuals" class="display" style="display: none; width:100%">
+                    <thead>
+                        <tr>
+                            <th>SL.No</th>
+                            <th>Description</th>
+                            <th>Date of upload</th>
+                            <th>Format</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filesTableBodyManuals">
+                        <!-- Files will be populated here by JavaScript -->
+                    </tbody>
+                </table>
             </div>
-            
-            <div class="loading" id="loadingMessageManuals">
-              Loading manuals...
-            </div>
-            
-            <div class="error" id="errorMessageManuals" style="display: none;">
-              Error loading manuals. Please check your connection and try again.
-            </div>
-            
-            <table id="filesTableManuals" class="display" style="display: none; width:100%">
-              <thead>
-                <tr>
-                  <th>SL.No</th>
-                  <th>Description</th>
-                  <th>Date of upload</th>
-                  <th>Format</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="filesTableBodyManuals">
-                <!-- Files will be populated here by JavaScript -->
-              </tbody>
-            </table>
-          </div>
         </div>
         
         <!-- Orders & Circulars Tab -->
         <div class="tab-content" id="orders">
-          <div class="table-container">
-            <div class="search-container">
-              <div class="search-box">
-                <input type="text" id="searchInputOrders" placeholder="Search orders by name or type...">
-                <span class="search-icon">🔍</span>
-              </div>
-              <div class="table-info" id="tableInfoOrders"></div>
+            <div class="table-container">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInputOrders" placeholder="Search orders by name or type...">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="table-info" id="tableInfoOrders"></div>
+                </div>
+                
+                <div class="loading" id="loadingMessageOrders">
+                    Loading orders...
+                </div>
+                
+                <div class="error" id="errorMessageOrders" style="display: none;">
+                    Error loading orders. Please check your connection and try again.
+                </div>
+                
+                <table id="filesTableOrders" class="display" style="display: none; width:100%">
+                    <thead>
+                        <tr>
+                            <th>SL.No</th>
+                            <th>Subject/Description</th>
+                            <th>Date of Upload</th>
+                            <th>Format</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filesTableBodyOrders">
+                        <!-- Files will be populated here by JavaScript -->
+                    </tbody>
+                </table>
             </div>
-            
-            <div class="loading" id="loadingMessageOrders">
-              Loading orders...
-            </div>
-            
-            <div class="error" id="errorMessageOrders" style="display: none;">
-              Error loading orders. Please check your connection and try again.
-            </div>
-            
-            <table id="filesTableOrders" class="display" style="display: none; width:100%">
-              <thead>
-                <tr>
-                  <th>SL.No</th>
-                  <th>Subject/Description</th>
-                  <th>Date of Upload</th>
-                  <th>Format</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="filesTableBodyOrders">
-                <!-- Files will be populated here by JavaScript -->
-              </tbody>
-            </table>
-          </div>
         </div>
         
-        <!-- Forms & Proforma Tab -->
+        <!-- Forms & Proforma Tab - Replaced with file repository search -->
         <div class="tab-content" id="forms">
-          <div class="table-container">
-            <div class="search-container">
-              <div class="search-box">
-                <input type="text" id="searchInputForms" placeholder="Search forms by name or type...">
-                <span class="search-icon">🔍</span>
-              </div>
-              <div class="table-info" id="tableInfoForms"></div>
+            <div class="file-search-container">
+                <div class="table-container">
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" id="searchInputForms" placeholder="Search forms by name or type...">
+                            <span class="search-icon">🔍</span>
+                        </div>
+                        <div class="table-info" id="tableInfoForms"></div>
+                    </div>
+                    
+                    <div class="loading" id="loadingMessageForms">
+                        Loading forms...
+                    </div>
+                    
+                    <div class="error" id="errorMessageForms" style="display: none;">
+                        Error loading forms. Please check your connection and try again.
+                    </div>
+                    
+                    <table id="filesTableForms" class="display" style="display: none; width:100%">
+                        <thead>
+                            <tr>
+                                <th>SL.No</th>
+                                <th>Form/Proforma Description</th>
+                                <th>Date of upload</th>
+                                <th>File Format</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tbody id="filesTableBodyForms">
+                            <!-- Files will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
-            <div class="loading" id="loadingMessageForms">
-              Loading forms...
-            </div>
-            
-            <div class="error" id="errorMessageForms" style="display: none;">
-              Error loading forms. Please check your connection and try again.
-            </div>
-            
-            <table id="filesTableForms" class="display" style="display: none; width:100%">
-              <thead>
-                <tr>
-                  <th>SL.No</th>
-                  <th>Form/Proforma Description</th>
-                  <th>Date of upload</th>
-                  <th>File Format</th>
-                  <th>View</th>
-                </tr>
-              </thead>
-              <tbody id="filesTableBodyForms">
-                <!-- Files will be populated here by JavaScript -->
-              </tbody>
-            </table>
-          </div>
         </div>
-      </div>
     </div>
   </main>
 
@@ -659,7 +654,6 @@
     <button class="close-btn" id="closeModal">×</button>
     <iframe id="uploadFrame" src=""></iframe>
   </div>
-
    <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -668,287 +662,7 @@
   <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-
-  <script>
-    // Initialize AOS after it's loaded
-    document.addEventListener('DOMContentLoaded', function() {
-      AOS.init({
-        duration: 1000,
-        once: true
-      });
-      
-      // Initialize the document repository
-      initializeDocumentRepository();
-    });
-    
-    // Tab functionality
-    function initializeDocumentRepository() {
-      const tabs = document.querySelectorAll('.tab');
-      const tabContents = document.querySelectorAll('.tab-content');
-      
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const tabId = tab.getAttribute('data-tab');
-          
-          // Remove active class from all tabs and contents
-          tabs.forEach(t => t.classList.remove('active'));
-          tabContents.forEach(c => c.classList.remove('active'));
-          
-          // Add active class to clicked tab and corresponding content
-          tab.classList.add('active');
-          document.getElementById(tabId).classList.add('active');
-          
-          // Load files for the active tab if not already loaded
-          if (!window.tabLoaded || !window.tabLoaded[tabId]) {
-            fetchFiles(tabId);
-            if (!window.tabLoaded) window.tabLoaded = {};
-            window.tabLoaded[tabId] = true;
-          }
-        });
-      });
-      
-      // Upload modal functionality
-      const uploadBtn = document.getElementById('uploadBtn');
-      const uploadModal = document.getElementById('uploadModal');
-      const closeModal = document.getElementById('closeModal');
-      
-      if (uploadBtn) {
-        uploadBtn.addEventListener('click', () => {
-          uploadModal.classList.add('active');
-        });
-      }
-      
-      if (closeModal) {
-        closeModal.addEventListener('click', () => {
-          uploadModal.classList.remove('active');
-        });
-      }
-      
-      // Close modal when clicking outside
-      uploadModal.addEventListener('click', (e) => {
-        if (e.target === uploadModal) {
-          uploadModal.classList.remove('active');
-        }
-      });
-      
-      // Load files for the initially active tab (manuals)
-      fetchFiles('manuals');
-      window.tabLoaded = { manuals: true };
-    }
-    
-    // File Search Table Configuration and Functionality
-    const FOLDER_IDS = {
-      manuals: '17bJfMoUDG64dRF5aWXJASc94xAWAkIZ6',
-      orders: '17bJfMoUDG64dRF5aWXJASc94xAWAkIZ6',
-      forms: '17bJfMoUDG64dRF5aWXJASc94xAWAkIZ6'
-    };
-    
-    const API_KEY = 'AIzaSyAbjIeVAXnYweF7PLH63ENzcNQKgCVAHDU';
-    
-    // Fixed File type icons (SVG data URLs)
-    const fileIcons = {
-      pdf: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2MzMDgwMCI+PHBhdGggZD0iTTggMTZIOFY4SDhWMThNMTAgMTZIMTBWOFYxNk0xMiAxNkgxMlY4SDEyVjE2TTE0IDJINkEyIDIgMCAwIDAgNCA0VjIwQTIgMiAwIDAgMCA2IDIySDE4QTIgMiAwIDAgMCAyMCAyMFY4TDE0IDJNMTQgNEgxNFY4SDE4TDE0IDRaIi8+PC9zdmc+',
-      doc: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzFBNTlGRiI+PHBhdGggZD0iTTE0IDJINkEyIDIgMCAwIDAgNCA0VjIwQTIgMiAwIDAgMCA2IDIySDE4QTIgMiAwIDAgMCAyMCAyMFY4TDE0IDJNMTQgNEgxNFY4SDE4TDE0IDRaIi8+PC9zdmc+',
-      xls: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzFBNzA0QyI+PHBhdGggZD0iTTE0IDJINkEyIDIgMCAwIDAgNCA0VjIwQTIgMiAwIDAgMCA2IDIySDE4QTIgMiAwIDAgMCAyMCAyMFY4TDE0IDJNMTQgNEgxNFY4SDE4TDE0IDRaIi8+PC9zdmc+',
-      default: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzVGNjM2OCI+PHBhdGggZD0iTTE0IDJINkEyIDIgMCAwIDAgNCA0VjIwQTIgMiAwIDAgMCA2IDIySDE4QTIgMiAwIDAgMCAyMCAyMFY4TDE0IDJNMTQgNEgxNFY4SDE4TDE0IDRaIi8+PC9zdmc+'
-    };
-    
-    // DataTable instances
-    let dataTables = {};
-    
-    // Helper function to capitalize first letter
-    function capitalizeFirst(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-    
-    // Function to get file icon based on file type
-    function getFileIcon(mimeType) {
-      if (mimeType.includes('pdf')) return fileIcons.pdf;
-      if (mimeType.includes('document') || mimeType.includes('word')) return fileIcons.doc;
-      if (mimeType.includes('spreadsheet') || mimeType.includes('excel')) return fileIcons.xls;
-      return fileIcons.default;
-    }
-    
-    // Function to get file format badge class
-    function getFormatClass(mimeType) {
-      if (mimeType.includes('pdf')) return 'pdf';
-      if (mimeType.includes('document') || mimeType.includes('word')) return 'doc';
-      if (mimeType.includes('spreadsheet') || mimeType.includes('excel')) return 'xls';
-      return '';
-    }
-    
-    // Function to get file format display name
-    function getFormatName(mimeType) {
-      if (mimeType.includes('pdf')) return 'PDF';
-      if (mimeType.includes('document') || mimeType.includes('word')) return 'DOC';
-      if (mimeType.includes('spreadsheet') || mimeType.includes('excel')) return 'XLS';
-      return mimeType.split('/').pop().toUpperCase();
-    }
-    
-    // Function to format date
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      });
-    }
-    
-    // Function to fetch files from Google Drive for a specific tab
-    async function fetchFiles(tabName) {
-      const loadingMessage = document.getElementById(`loadingMessage${capitalizeFirst(tabName)}`);
-      const errorMessage = document.getElementById(`errorMessage${capitalizeFirst(tabName)}`);
-      const filesTable = document.getElementById(`filesTable${capitalizeFirst(tabName)}`);
-      const filesTableBody = document.getElementById(`filesTableBody${capitalizeFirst(tabName)}`);
-      const searchInput = document.getElementById(`searchInput${capitalizeFirst(tabName)}`);
-      const tableInfo = document.getElementById(`tableInfo${capitalizeFirst(tabName)}`);
-      
-      try {
-        // Build the API URL
-        const apiUrl = `https://www.googleapis.com/drive/v3/files?q='${FOLDER_IDS[tabName]}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType,webViewLink,webContentLink,modifiedTime)`;
-        
-        // Make the API request
-        const response = await fetch(apiUrl);
-        
-        if (!response.ok) {
-          throw new Error(`API request failed with status ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Hide loading message
-        loadingMessage.style.display = 'none';
-        
-        // Check if we have files
-        if (data.files && data.files.length > 0) {
-          // Sort files by modified date (newest first)
-          data.files.sort((a, b) => new Date(b.modifiedTime) - new Date(a.modifiedTime));
-          
-          // Populate the table
-          populateTable(tabName, data.files);
-          filesTable.style.display = 'table';
-          initializeDataTable(tabName);
-        } else {
-          errorMessage.textContent = `No files found in the ${tabName} folder.`;
-          errorMessage.style.display = 'block';
-        }
-        
-      } catch (error) {
-        console.error(`Error fetching ${tabName}:`, error);
-        loadingMessage.style.display = 'none';
-        errorMessage.textContent = `Error loading ${tabName}: ${error.message}`;
-        errorMessage.style.display = 'block';
-      }
-    }
-    
-    // Function to populate the table with file data
-    function populateTable(tabName, files) {
-      const filesTableBody = document.getElementById(`filesTableBody${capitalizeFirst(tabName)}`);
-      filesTableBody.innerHTML = '';
-      
-      files.forEach((file, index) => {
-        const row = document.createElement('tr');
-        
-        // SL.No
-        const slCell = document.createElement('td');
-        slCell.textContent = index + 1;
-        row.appendChild(slCell);
-        
-        // File Name/Description
-        const nameCell = document.createElement('td');
-        const icon = document.createElement('img');
-        icon.src = getFileIcon(file.mimeType);
-        icon.alt = 'File icon';
-        icon.className = 'file-icon';
-        nameCell.appendChild(icon);
-        nameCell.appendChild(document.createTextNode(file.name));
-        row.appendChild(nameCell);
-        
-        // Date Column
-        const dateCell = document.createElement('td');
-        dateCell.className = 'date-cell';
-        dateCell.textContent = formatDate(file.modifiedTime);
-        row.appendChild(dateCell);
-        
-        // File Format
-        const formatCell = document.createElement('td');
-        const formatBadge = document.createElement('span');
-        formatBadge.className = `format-badge ${getFormatClass(file.mimeType)}`;
-        formatBadge.textContent = getFormatName(file.mimeType);
-        formatCell.appendChild(formatBadge);
-        row.appendChild(formatCell);
-        
-        // Action Button
-        const actionCell = document.createElement('td');
-        const viewButton = document.createElement('button');
-        viewButton.className = 'view-btn';
-        viewButton.textContent = 'View';
-        viewButton.onclick = () => {
-          // Open the file in a new tab
-          window.open(file.webViewLink || `https://drive.google.com/file/d/${file.id}/view`, '_blank');
-        };
-        actionCell.appendChild(viewButton);
-        row.appendChild(actionCell);
-        
-        filesTableBody.appendChild(row);
-      });
-    }
-    
-    // Function to initialize DataTable
-    function initializeDataTable(tabName) {
-      const tableId = `filesTable${capitalizeFirst(tabName)}`;
-      const searchInput = document.getElementById(`searchInput${capitalizeFirst(tabName)}`);
-      const tableInfo = document.getElementById(`tableInfo${capitalizeFirst(tabName)}`);
-      
-      dataTables[tabName] = $(`#${tableId}`).DataTable({
-        "pageLength": 10,
-        "lengthMenu": [5, 10, 25, 50],
-        "dom": '<"top"if>rt<"bottom"lp><"clear">',
-        "language": {
-          "emptyTable": "No files found",
-          "info": "Showing _START_ to _END_ of _TOTAL_ files",
-          "infoEmpty": "Showing 0 to 0 of 0 files",
-          "infoFiltered": "(filtered from _MAX_ total files)",
-          "lengthMenu": "Show _MENU_ files",
-          "loadingRecords": "Loading...",
-          "processing": "Processing...",
-          "search": "Search:",
-          "zeroRecords": "No matching files found",
-          "paginate": {
-            "first": "First",
-            "last": "Last",
-            "next": "Next",
-            "previous": "Previous"
-          }
-        },
-        "columnDefs": [
-          { "orderable": true, "targets": [0, 1, 2, 3] },
-          { "orderable": false, "targets": [4] }
-        ],
-        "order": [[2, 'desc']] // Default sort by date (newest first)
-      });
-      
-      // Custom search functionality
-      searchInput.addEventListener('keyup', function() {
-        dataTables[tabName].search(this.value).draw();
-      });
-      
-      // Update table info on draw
-      dataTables[tabName].on('draw', function() {
-        updateTableInfo(tabName);
-      });
-      
-      // Initial table info update
-      updateTableInfo(tabName);
-    }
-    
-    // Function to update table information
-    function updateTableInfo(tabName) {
-      const tableInfo = document.getElementById(`tableInfo${capitalizeFirst(tabName)}`);
-      if (dataTables[tabName]) {
-        const pageInfo = dataTables[tabName].page.info();
-        tableInfo.textContent = `Showing ${pageInfo.recordsDisplay} of ${pageInfo.recordsTotal} files`;
-      }
-    }
-  </script></body></html>
+   <script src="./resources/file-repo.js"></script>
+ 
+  </body>
+</html>
