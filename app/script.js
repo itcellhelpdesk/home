@@ -22,7 +22,6 @@ const contentTitle = document.getElementById('content-title');
 const contentClose = document.getElementById('content-close');
 const backBtn = document.getElementById('back-btn');
 const appTitle = document.getElementById('app-title');
-const userName = document.getElementById('user-name');
 const chatIcon = document.getElementById('chat-icon');
 const chatPopup = document.getElementById('chat-popup');
 const closePopup = document.getElementById('close-popup');
@@ -35,8 +34,6 @@ function initApp() {
     setupEventListeners();
     loadApps();
     loadNewsReel();
-    // Start background notification check
-    setTimeout(startBackgroundNotificationCheck, 2000);
 }
 
 // Setup event listeners
@@ -137,7 +134,7 @@ function loadNewsReel() {
 
 // Load Apps from Google Sheets
 function loadApps(callback) {
-    const menuUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${menuSheetName}!A:H?key=${apiKey}`;
+    const menuUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${menuSheetName}!A:F?key=${apiKey}`;
     
     fetch(menuUrl)
         .then(response => response.json())
@@ -148,21 +145,21 @@ function loadApps(callback) {
         })
         .catch(error => {
             console.error('Error loading menu:', error);
-            // Use demo data with notification values
+            // Use demo data without notification values
             menuData = [
-                ['Main Menu', 'Sub Menu', 'Link', 'Content', 'Icon', '', '5', '3'],
-                ['Dashboard', 'Overview', '/overview', '<div class="demo-content"><h3>Dashboard Overview</h3><p>Welcome to your IT HelpDesk dashboard.</p></div>', 'bi bi-speedometer2', '', '2', '1'],
-                ['Tickets', 'Create Ticket', '/create', '<div class="demo-content"><h3>Create New Ticket</h3><p>Submit a new support ticket here.</p></div>', 'bi bi-ticket-perforated', '', '5', '2'],
-                ['Tickets', 'View Tickets', '/view', '<div class="demo-content"><h3>My Tickets</h3><p>View and manage your support tickets.</p></div>', 'bi bi-ticket-perforated', '', '0', '0'],
-                ['Resources', 'Knowledge Base', '/kb', '<div class="demo-content"><h3>Knowledge Base</h3><p>Browse solutions to common problems.</p></div>', 'bi bi-journal-bookmark', '', '1', '4'],
-                ['Admin', 'User Management', '/users', '<div class="demo-content"><h3>User Management</h3><p>Manage user accounts and permissions.</p></div>', 'bi bi-people', '', '3', '2']
+                ['Main Menu', 'Sub Menu', 'Link', 'Content', 'Icon', ''],
+                ['Dashboard', 'Overview', '/overview', '<div class="demo-content"><h3>Dashboard Overview</h3><p>Welcome to your IT HelpDesk dashboard.</p></div>', 'bi bi-speedometer2', ''],
+                ['Tickets', 'Create Ticket', '/create', '<div class="demo-content"><h3>Create New Ticket</h3><p>Submit a new support ticket here.</p></div>', 'bi bi-ticket-perforated', ''],
+                ['Tickets', 'View Tickets', '/view', '<div class="demo-content"><h3>My Tickets</h3><p>View and manage your support tickets.</p></div>', 'bi bi-ticket-perforated', ''],
+                ['Resources', 'Knowledge Base', '/kb', '<div class="demo-content"><h3>Knowledge Base</h3><p>Browse solutions to common problems.</p></div>', 'bi bi-journal-bookmark', ''],
+                ['Admin', 'User Management', '/users', '<div class="demo-content"><h3>User Management</h3><p>Manage user accounts and permissions.</p></div>', 'bi bi-people', '']
             ];
             renderApps();
             if (callback) callback();
         });
 }
 
-// Render Apps as Tiles with Notification Badges
+// Render Apps as Tiles (No badges)
 function renderApps() {
     appsGrid.innerHTML = '';
     
@@ -173,7 +170,7 @@ function renderApps() {
     
     const mainMenus = {};
     
-    // First pass: Create main menu structure and SUM submenu notifications
+    // Create main menu structure
     menuData.slice(1).forEach(row => {
         if (row && row.length >= 4) {
             const mainMenu = row[0];
@@ -181,42 +178,27 @@ function renderApps() {
             const subMenuLink = row[2];
             const dynamicContent = row[3];
             const iconClass = row[4] || 'bi bi-folder';
-            const subBadgeValue = row[7] || '0'; // H column - Submenu notifications
             
             if (!mainMenus[mainMenu]) {
                 mainMenus[mainMenu] = {
                     name: mainMenu,
                     icon: iconClass,
-                    mainBadge: 0, // Initialize sum as number
                     submenus: []
                 };
-            }
-            
-            // SUM submenu notification values for main menu badge
-            if (subBadgeValue && subBadgeValue !== '0' && subBadgeValue.trim() !== '') {
-                const badgeValue = parseInt(subBadgeValue) || 0;
-                mainMenus[mainMenu].mainBadge += badgeValue;
             }
             
             if (subMenu && subMenuLink) {
                 mainMenus[mainMenu].submenus.push({
                     name: subMenu,
                     link: subMenuLink,
-                    content: dynamicContent,
-                    badge: subBadgeValue
+                    content: dynamicContent
                 });
             }
         }
     });
     
-    console.log('Processed menus with submenu badge sums:', mainMenus);
-    
-    // Create app tiles with badges
+    // Create app tiles
     Object.values(mainMenus).forEach(menu => {
-        const appTileWrapper = document.createElement('div');
-        appTileWrapper.className = 'app-tile-wrapper';
-        appTileWrapper.setAttribute('data-menu', menu.name);
-        
         const appTile = document.createElement('div');
         appTile.className = 'app-tile';
         
@@ -228,21 +210,6 @@ function renderApps() {
             </div>
             <div class="app-name">${menu.name}</div>
         `;
-        
-        // Add badge container if sum of submenu notifications is greater than 0
-        if (menu.mainBadge > 0) {
-            const badgeContainer = document.createElement('div');
-            badgeContainer.className = 'badge-container';
-            const badge = document.createElement('div');
-            badge.className = 'main-menu-badge notification-badge';
-            badge.textContent = menu.mainBadge.toString();
-            badgeContainer.appendChild(badge);
-            appTileWrapper.appendChild(badgeContainer);
-            
-            console.log(`Added initial badge for ${menu.name}: ${menu.mainBadge} (sum of submenus)`);
-        }
-        
-        appTileWrapper.appendChild(appTile);
         
         appTile.addEventListener('click', () => {
             if (menu.submenus.length > 0) {
@@ -274,7 +241,7 @@ function renderApps() {
             }
         });
         
-        appsGrid.appendChild(appTileWrapper);
+        appsGrid.appendChild(appTile);
     });
 }
 
@@ -289,29 +256,20 @@ function findMenuByName(name) {
             const subMenuLink = row[2];
             const dynamicContent = row[3];
             const iconClass = row[4] || 'bi bi-folder';
-            const subBadgeValue = row[7] || '0'; // H column - Submenu notifications
             
             if (!mainMenus[mainMenu]) {
                 mainMenus[mainMenu] = {
                     name: mainMenu,
                     icon: iconClass,
-                    mainBadge: 0, // Initialize as number
                     submenus: []
                 };
-            }
-            
-            // SUM submenu notification values for main menu badge
-            if (subBadgeValue && subBadgeValue !== '0' && subBadgeValue.trim() !== '') {
-                const badgeValue = parseInt(subBadgeValue) || 0;
-                mainMenus[mainMenu].mainBadge += badgeValue;
             }
             
             if (subMenu && subMenuLink) {
                 mainMenus[mainMenu].submenus.push({
                     name: subMenu,
                     link: subMenuLink,
-                    content: dynamicContent,
-                    badge: subBadgeValue
+                    content: dynamicContent
                 });
             }
         }
@@ -320,7 +278,7 @@ function findMenuByName(name) {
     return mainMenus[name] || null;
 }
 
-// Open Submenu with Notification Badges
+// Open Submenu (No badges)
 function openSubmenu(menu, addToHistory = true) {
     currentApp = menu;
     submenuTitle.textContent = menu.name;
@@ -329,13 +287,7 @@ function openSubmenu(menu, addToHistory = true) {
     menu.submenus.forEach(submenu => {
         const item = document.createElement('div');
         item.className = 'submenu-item';
-        
-        let badgeHTML = '';
-        if (submenu.badge && submenu.badge !== '0' && submenu.badge.trim() !== '') {
-            badgeHTML = `<div class="submenu-badge notification-badge">${submenu.badge}</div>`;
-        }
-        
-        item.innerHTML = `${submenu.name}${badgeHTML}`;
+        item.textContent = submenu.name;
         
         item.addEventListener('click', () => {
             loadContent(submenu);
@@ -433,96 +385,6 @@ function restoreContentPage(state) {
     }
 }
 
-// BACKGROUND NOTIFICATION CHECK
-function startBackgroundNotificationCheck() {
-    console.log('Starting background notification check...');
-    
-    // Check immediately first time
-    checkAndUpdateNotifications();
-    
-    // Then check every 30 seconds
-    setInterval(checkAndUpdateNotifications, 30000);
-}
-
-// Notification check function
-function checkAndUpdateNotifications() {
-    console.log('Checking for notification updates...');
-    
-    const menuUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${menuSheetName}!A:H?key=${apiKey}`;
-    
-    fetch(menuUrl)
-        .then(response => response.json())
-        .then(data => {
-            if (data.values && data.values.length > 1) {
-                updateAllBadgesCompletelyFixed(data.values);
-            }
-        })
-        .catch(error => {
-            console.error('Error checking notifications:', error);
-        });
-}
-
-// COMPLETELY FIXED BADGE UPDATE - Sum submenu values for main menu badges
-function updateAllBadgesCompletelyFixed(newMenuData) {
-    console.log('Completely fixed badge update started...');
-    
-    // Create a map to SUM all SUBMENU notification values for each main menu
-    const menuBadgeSums = new Map();
-    
-    // Process all rows and SUM SUBMENU notification values (column H) for each main menu
-    newMenuData.slice(1).forEach(row => {
-        if (row && row.length >= 8) {
-            const mainMenu = row[0];
-            const subBadgeValue = row[7] || '0'; // H column - Submenu notifications
-            
-            if (mainMenu && subBadgeValue && subBadgeValue !== '0' && subBadgeValue.trim() !== '') {
-                const currentSum = menuBadgeSums.get(mainMenu) || 0;
-                const newValue = parseInt(subBadgeValue) || 0;
-                menuBadgeSums.set(mainMenu, currentSum + newValue);
-            }
-        }
-    });
-    
-    console.log('Main menu badge sums (from submenus):', Array.from(menuBadgeSums.entries()));
-    
-    // Get all app tile wrappers
-    const appWrappers = document.querySelectorAll('.app-tile-wrapper');
-    console.log('Total app wrappers found:', appWrappers.length);
-    
-    // Update each wrapper
-    appWrappers.forEach(wrapper => {
-        const menuName = wrapper.getAttribute('data-menu');
-        const badgeSum = menuBadgeSums.get(menuName);
-        
-        console.log(`Processing: ${menuName} - Badge Sum: ${badgeSum}`);
-        
-        // Remove existing badge container
-        const existingBadgeContainer = wrapper.querySelector('.badge-container');
-        if (existingBadgeContainer) {
-            existingBadgeContainer.remove();
-        }
-        
-        // Create new badge if sum exists and is greater than 0
-        if (badgeSum && badgeSum > 0) {
-            const badgeContainer = document.createElement('div');
-            badgeContainer.className = 'badge-container';
-            
-            const badge = document.createElement('div');
-            badge.className = 'main-menu-badge notification-badge';
-            badge.textContent = badgeSum.toString();
-            
-            badgeContainer.appendChild(badge);
-            wrapper.insertBefore(badgeContainer, wrapper.firstChild);
-            
-            console.log(`Added/Updated badge for ${menuName}: ${badgeSum}`);
-        } else {
-            console.log(`No badge for ${menuName} (sum: ${badgeSum})`);
-        }
-    });
-    
-    console.log('Completely fixed badge update completed');
-}
-
 // Go back function
 function goBack() {
     if (appState === 'content') {
@@ -571,4 +433,3 @@ function sendChatMessage() {
 window.addEventListener('load', function() {
     initApp();
 });
-
