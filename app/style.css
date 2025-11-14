@@ -159,34 +159,6 @@ body {
     color: #333;
 }
 
-/* Notification Badges */
-.notification-badge {
-    position: absolute;
-    border-radius: 50%;
-    color: white;
-    font-size: 0.7rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 5px;
-    z-index: 10;
-}
-
-.main-menu-badge {
-    background: var(--danger);
-    top: 5px;
-    right: 5px;
-}
-
-.submenu-badge {
-    background: var(--primary);
-    top: 10px;
-    right: 15px;
-}
-
 /* Submenu Popup */
 .submenu-popup {
     position: fixed;
@@ -572,55 +544,4 @@ body {
     display: block;
     width: 100%;
     overflow: hidden;
-}
-
-/* Notification Badges - Mobile App Style */
-.notification-badge {
-    position: absolute;
-    border-radius: 50%;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 20px;
-    height: 20px;
-    z-index: 100;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    border: 1px solid white;
-}
-
-.main-menu-badge {
-    background: #dc3545;
-    top: -8px;
-    right: -8px;
-}
-
-.submenu-badge {
-    background: #0e56d1;
-    top: -8px;
-    right: -8px;
-}
-
-.app-tile {
-    position: relative;
-}
-
-.app-tile-wrapper {
-    position: relative;
-    display: block;
-}
-
-.submenu-item {
-    position: relative;
-}
-
-.badge-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    z-index: 100;
 }
