@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en" style="min-width: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Tracking - District Treasury Trivandrum</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+           background-color: #f8f9fa;
+            color: #333;
+            min-height: 100vh;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #1a5276, #2e86c1);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #ffcc00;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #1a5276;
+            box-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .tracking-form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1a5276;
+            font-size: 0.95rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            border-color: #2e86c1;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 134, 193, 0.2);
+        }
+        
+        button {
+            background: linear-gradient(to right, #ffcc00, #ffaa00);
+            color: #1a5276;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            height: 46px;
+            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.3);
+            white-space: nowrap;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 204, 0, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .result-container {
+            display: none;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 15px;
+            border-left: 5px solid #2e86c1;
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .token-status {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a5276;
+        }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .status-issued {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-not-issued {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        .status-completed {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-card h3 {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 6px;
+        }
+        
+        .info-card p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a5276;
+        }
+        
+        .counter-card {
+            background:linear-gradient(to right, #f1fde3, #ffea96);
+            border: 2px solid #2e86c1;
+        }
+        
+        .queue-visualization {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .queue-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a5276;
+            text-align: center;
+        }
+        
+        .queue-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .queue-token {
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .queue-current {
+            background-color: #ffcc00;
+            color: #1a5276;
+            transform: scale(1.1);
+            box-shadow: 0 0 12px rgba(255, 204, 0, 0.7);
+        }
+        
+        .queue-waiting {
+            background-color: #e3f2fd;
+            color: #1a5276;
+        }
+        
+        .queue-user {
+            background-color: #1a5276;
+            color: white;
+            box-shadow: 0 0 8px rgba(26, 82, 118, 0.5);
+        }
+        
+        .progress-container {
+            margin-top: 15px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #2e86c1, #1a5276);
+            border-radius: 8px;
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 15px;
+            color: #6c757d;
+            font-size: 0.85rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 15px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2e86c1;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            padding: 12px;
+            background-color: #f8d7da;
+            border-radius: 8px;
+            margin-top: 12px;
+            display: none;
+        }
+        
+        .auto-refresh-notice {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .tracking-form {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .form-group {
+                width: 100%;
+            }
+            
+            button {
+                width: 100%;
+                height: auto;
+                padding: 12px;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .queue-container {
+                gap: 6px;
+            }
+            
+            .queue-token {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .logo {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+                top: 12px;
+                left: 15px;
+            }
+            
+            .content {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">DT</div>
+            <h1>Token Tracking System</h1>
+            <p>District Treasury, Trivandrum</p>
+        </div>
+        
+        <div class="content">
+            <div class="tracking-form">
+                <div class="form-group">
+                    <label for="tokenInput">Enter Your Token Number</label>
+                    <input type="number" id="tokenInput" placeholder="e.g., 1042" min="1">
+                </div>
+                <button id="trackButton">Track Token</button>
+            </div>
+            
+            <div class="loading" id="loadingIndicator">
+                <div class="spinner"></div>
+                <p>Checking token status...</p>
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                Error fetching token data. Please try again.
+            </div>
+            
+            <div class="result-container" id="resultContainer">
+                <div class="result-header">
+                    <div class="token-status">Token #<span id="tokenNumber">-</span></div>
+                    <div class="status-badge" id="statusBadge">Status</div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card counter-card">
+                        <h3>Counter</h3>
+                        <p id="counterInfo">-</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Your Position</h3>
+                        <p id="positionInfo">-</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Estimated Wait</h3>
+                        <p id="waitTimeInfo">-</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Expected Time</h3>
+                        <p id="expectedTimeInfo">-</p>
+                    </div>
+                </div>
+                
+                <div class="queue-visualization">
+                    <div class="queue-title">Current Queue Status</div>
+                    <div class="queue-container" id="queueContainer">
+                        <!-- Queue tokens will be inserted here dynamically -->
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Current Token</span>
+                            <span id="progressText">0/0</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="auto-refresh-notice">
+                    Status updates automatically every 15 seconds
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tokenInput = document.getElementById('tokenInput');
+            const trackButton = document.getElementById('trackButton');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const errorMessage = document.getElementById('errorMessage');
+            const resultContainer = document.getElementById('resultContainer');
+            
+            const tokenNumber = document.getElementById('tokenNumber');
+            const statusBadge = document.getElementById('statusBadge');
+            const counterInfo = document.getElementById('counterInfo');
+            const positionInfo = document.getElementById('positionInfo');
+            const waitTimeInfo = document.getElementById('waitTimeInfo');
+            const expectedTimeInfo = document.getElementById('expectedTimeInfo');
+            const queueContainer = document.getElementById('queueContainer');
+            const progressText = document.getElementById('progressText');
+            const progressFill = document.getElementById('progressFill');
+            
+            // Google Sheets API configuration
+            const SPREADSHEET_ID = '11AWbKR2rR2YQYm6AdjEQsw-na9QObL0wfw6eAi4MEdM';
+            const API_KEY = 'AIzaSyBAuS3Brpsw5JOJnjNJii1UlFa7ClXf8d4';
+            const SHEET_NAME = '101';
+            
+            // Average time per token (in minutes)
+            const AVG_TIME_PER_TOKEN = 3;
+            
+            // Variables for tracking current token and auto-refresh
+            let currentTrackingToken = null;
+            let autoRefreshInterval = null;
+            
+            // Track token function
+            trackButton.addEventListener('click', trackToken);
+            tokenInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    trackToken();
+                }
+            });
+            
+            async function trackToken() {
+                const tokenValue = parseInt(tokenInput.value);
+                
+                if (!tokenValue || tokenValue < 1) {
+                    alert('Please enter a valid token number');
+                    return;
+                }
+                
+                // Set current tracking token
+                currentTrackingToken = tokenValue;
+                
+                // Show loading, hide results and errors
+                loadingIndicator.style.display = 'block';
+                resultContainer.style.display = 'none';
+                errorMessage.style.display = 'none';
+                
+                try {
+                    await updateTokenInfo(tokenValue);
+                    
+                    // Start auto-refresh if not already running
+                    if (!autoRefreshInterval) {
+                        autoRefreshInterval = setInterval(autoRefreshToken, 15000); // 15 seconds
+                    }
+                } catch (error) {
+                    console.error('Error tracking token:', error);
+                    loadingIndicator.style.display = 'none';
+                    errorMessage.style.display = 'block';
+                }
+            }
+            
+            // Auto-refresh function
+            async function autoRefreshToken() {
+                if (!currentTrackingToken) return;
+                
+                try {
+                    await updateTokenInfo(currentTrackingToken);
+                } catch (error) {
+                    console.error('Error in auto-refresh:', error);
+                }
+            }
+            
+            // Update token information
+            async function updateTokenInfo(tokenValue) {
+                const tokenData = await fetchTokenData();
+                const userTokenInfo = findTokenInfo(tokenData, tokenValue);
+                
+                // Hide loading
+                loadingIndicator.style.display = 'none';
+                
+                if (!userTokenInfo) {
+                    showTokenNotFound(tokenValue);
+                } else {
+                    displayTokenInfo(userTokenInfo, tokenValue, tokenData);
+                }
+            }
+            
+            // Fetch token data from Google Sheets
+            async function fetchTokenData() {
+                const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                return processTokenData(data.values);
+            }
+            
+            // Process the token data from Google Sheets
+            function processTokenData(values) {
+                if (!values || values.length < 2) return {};
+                
+                const headers = values[0];
+                const rows = values.slice(1);
+                
+                const sectionsMap = {};
+                
+                rows.forEach(row => {
+                    if (row.length < headers.length) return;
+                    
+                    const section = row[1]; // Column B: section
+                    const tokenNo = parseInt(row[2]); // Column C: tokenNo
+                    const status = row[5]; // Column F: status
+                    
+                    if (!sectionsMap[section]) {
+                        sectionsMap[section] = {
+                            currentToken: null,
+                            queuedTokens: [],
+                            allTokens: []
+                        };
+                    }
+                    
+                    // Add to all tokens list
+                    sectionsMap[section].allTokens.push({
+                        tokenNo: tokenNo,
+                        status: status
+                    });
+                    
+                    if (status === 'Pass') {
+                        if (!sectionsMap[section].currentToken || tokenNo > sectionsMap[section].currentToken) {
+                            sectionsMap[section].currentToken = tokenNo;
+                        }
+                    } else if (status === 'In Que') {
+                        sectionsMap[section].queuedTokens.push(tokenNo);
+                    }
+                });
+                
+                // Sort tokens for each section
+                for (const section in sectionsMap) {
+                    sectionsMap[section].queuedTokens.sort((a, b) => a - b);
+                    sectionsMap[section].allTokens.sort((a, b) => a.tokenNo - b.tokenNo);
+                }
+                
+                return sectionsMap;
+            }
+            
+            // Find token information in the data
+            function findTokenInfo(tokenData, tokenNumber) {
+                for (const section in tokenData) {
+                    const sectionData = tokenData[section];
+                    
+                    // Check if token exists in this section
+                    const tokenExists = sectionData.allTokens.some(token => token.tokenNo === tokenNumber);
+                    
+                    if (tokenExists) {
+                        return {
+                            section: section,
+                            currentToken: sectionData.currentToken,
+                            queuedTokens: sectionData.queuedTokens,
+                            allTokens: sectionData.allTokens,
+                            tokenStatus: getTokenStatus(sectionData, tokenNumber)
+                        };
+                    }
+                }
+                
+                return null;
+            }
+            
+            // Get the status of a specific token
+            function getTokenStatus(sectionData, tokenNumber) {
+                const token = sectionData.allTokens.find(t => t.tokenNo === tokenNumber);
+                
+                if (token) {
+                    if (token.status === 'Pass') {
+                        return 'completed';
+                    } else if (token.status === 'In Que') {
+                        return 'in-queue';
+                    } else {
+                        return 'issued';
+                    }
+                }
+                
+                return 'not-issued';
+            }
+            
+            // Display token not found message
+            function showTokenNotFound(tokenValue) {
+                resultContainer.style.display = 'block';
+                tokenNumber.textContent = tokenValue;
+                statusBadge.textContent = 'Not Issued';
+                statusBadge.className = 'status-badge status-not-issued';
+                
+                counterInfo.textContent = 'N/A';
+                positionInfo.textContent = 'N/A';
+                waitTimeInfo.textContent = 'N/A';
+                expectedTimeInfo.textContent = 'N/A';
+                
+                queueContainer.innerHTML = '<p>This token number has not been issued yet.</p>';
+                progressText.textContent = '0/0';
+                progressFill.style.width = '0%';
+            }
+            
+            // Display token information
+            function displayTokenInfo(tokenInfo, tokenNumber, tokenData) {
+                resultContainer.style.display = 'block';
+                
+                // Update basic info
+                tokenNumber.textContent = tokenNumber;
+                counterInfo.textContent = tokenInfo.section;
+                
+                // Set status badge
+                let statusText, statusClass;
+                switch(tokenInfo.tokenStatus) {
+                    case 'completed':
+                        statusText = 'Completed';
+                        statusClass = 'status-completed';
+                        break;
+                    case 'in-queue':
+                        statusText = 'In Queue';
+                        statusClass = 'status-issued';
+                        break;
+                    case 'issued':
+                        statusText = 'Issued';
+                        statusClass = 'status-issued';
+                        break;
+                    default:
+                        statusText = 'Not Issued';
+                        statusClass = 'status-not-issued';
+                }
+                
+                statusBadge.textContent = statusText;
+                statusBadge.className = 'status-badge ' + statusClass;
+                
+                // Calculate position and wait time
+                if (tokenInfo.tokenStatus === 'in-queue') {
+                    const position = tokenInfo.queuedTokens.indexOf(tokenNumber) + 1;
+                    const waitTime = position * AVG_TIME_PER_TOKEN;
+                    
+                    positionInfo.textContent = `${position} of ${tokenInfo.queuedTokens.length}`;
+                    waitTimeInfo.textContent = `${waitTime} min`;
+                    
+                    // Calculate expected time
+                    const now = new Date();
+                    const expectedTime = new Date(now.getTime() + waitTime * 60000);
+                    expectedTimeInfo.textContent = expectedTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    
+                    // Update queue visualization
+                    updateQueueVisualization(tokenInfo, tokenNumber);
+                    
+                    // Update progress
+                    const progress = ((position - 1) / tokenInfo.queuedTokens.length) * 100;
+                    progressText.textContent = `${position}/${tokenInfo.queuedTokens.length}`;
+                    progressFill.style.width = `${progress}%`;
+                } else if (tokenInfo.tokenStatus === 'completed') {
+                    positionInfo.textContent = 'Completed';
+                    waitTimeInfo.textContent = '0 min';
+                    expectedTimeInfo.textContent = 'Already Served';
+                    
+                    queueContainer.innerHTML = '<p>Your token has already been served.</p>';
+                    progressText.textContent = 'Completed';
+                    progressFill.style.width = '100%';
+                } else {
+                    positionInfo.textContent = 'Not in Queue';
+                    waitTimeInfo.textContent = 'N/A';
+                    expectedTimeInfo.textContent = 'N/A';
+                    
+                    queueContainer.innerHTML = '<p>Your token is not currently in the queue.</p>';
+                    progressText.textContent = '0/0';
+                    progressFill.style.width = '0%';
+                }
+            }
+            
+            // Update the queue visualization
+            function updateQueueVisualization(tokenInfo, userToken) {
+                queueContainer.innerHTML = '';
+                
+                // Show current token if available
+                if (tokenInfo.currentToken) {
+                    const currentElement = document.createElement('div');
+                    currentElement.className = 'queue-token queue-current';
+                    currentElement.textContent = tokenInfo.currentToken;
+                    queueContainer.appendChild(currentElement);
+                    
+                    // Add arrow
+                    const arrow = document.createElement('div');
+                    arrow.textContent = '→';
+                    arrow.style.fontSize = '1.3rem';
+                    arrow.style.color = '#666';
+                    arrow.style.margin = '0 5px';
+                    queueContainer.appendChild(arrow);
+                }
+                
+                // Show queued tokens with highlighting for user's token
+                tokenInfo.queuedTokens.forEach(token => {
+                    const tokenElement = document.createElement('div');
+                    
+                    if (token === userToken) {
+                        tokenElement.className = 'queue-token queue-user';
+                    } else {
+                        tokenElement.className = 'queue-token queue-waiting';
+                    }
+                    
+                    tokenElement.textContent = token;
+                    queueContainer.appendChild(tokenElement);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
