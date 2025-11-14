@@ -4,10 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Cell HelpDesk</title>
+	 <!-- Link the manifest -->
+    <link rel="manifest" href="manifest.json">
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#3367D6">
+    <!-- iOS Safari PWA support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./icons/icon-192x192.png">
+    <!-- Favicons -->
+    <link href="./icons/favicon.png" rel="icon">
+    <link href="./icons/favicon.png" rel="apple-touch-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
+	<script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/home/app/sw.js', { scope: '/home/app/' })
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Registration failed:', err));
+            });
+        }
+    </script>
 </head>
 <body>
     <!-- Main App -->
