@@ -32,15 +32,16 @@
         
         <div class="tabs-container">
             <ul class="tabs">
-			  
-                <li class="tab  active" data-tab="manuals">User Manuals & Guides</li>
-				  <li class="tab" data-tab="forms">Forms & Proforma</li>
+			    <li class="tab ctive" data-tab="manuals">User Manuals & Guides</li>
+			    <li class="tab " data-tab="forms">Forms & Proforma</li>
+         
                 <li class="tab" data-tab="orders">Orders & Circulars</li>
              
             </ul>
         </div>
-		    <!-- User Manuals & Guides Tab -->
-        <div class="tab-content" id="manuals">
+		
+		        <!-- User Manuals & Guides Tab -->
+        <div class="tab-content active" id="manuals">
             <div class="table-container">
                 <div class="search-container">
                     <div class="search-box">
@@ -74,8 +75,9 @@
                 </table>
             </div>
         </div>
+		
 		        <!-- Forms & Proforma Tab -->
-        <div class="tab-content active" id="forms">
+        <div class="tab-content" id="forms">
             <div class="table-container">
                 <div class="search-container">
                     <div class="search-box">
@@ -89,7 +91,7 @@
                     Loading forms...
                 </div>
                 
-                <div class="error" id="errorMessageForms" style="">
+                <div class="error" id="errorMessageForms" style="display: none;">
                     Error loading forms. Please check your connection and try again.
                 </div>
                 
@@ -110,7 +112,7 @@
             </div>
         </div>
         
-    
+
         
         <!-- Orders & Circulars Tab -->
         <div class="tab-content" id="orders">
