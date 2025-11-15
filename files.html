@@ -32,11 +32,47 @@
         
         <div class="tabs-container">
             <ul class="tabs">
-			    <li class="tab active" data-tab="forms">Forms & Proforma</li>
-                <li class="tab" data-tab="manuals">User Manuals & Guides</li>
+			  
+                <li class="tab  active" data-tab="manuals">User Manuals & Guides</li>
+				  <li class="tab" data-tab="forms">Forms & Proforma</li>
                 <li class="tab" data-tab="orders">Orders & Circulars</li>
              
             </ul>
+        </div>
+		    <!-- User Manuals & Guides Tab -->
+        <div class="tab-content" id="manuals">
+            <div class="table-container">
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="searchInputManuals" placeholder="Search manuals by name or type...">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    <div class="table-info" id="tableInfoManuals"></div>
+                </div>
+                
+                <div class="loading" id="loadingMessageManuals">
+                    Loading manuals...
+                </div>
+                
+                <div class="error" id="errorMessageManuals" style="display: none;">
+                    Error loading manuals. Please check your connection and try again.
+                </div>
+                
+                <table id="filesTableManuals" class="display" style="display: none; width:100%">
+                    <thead>
+                        <tr>
+                            <th>SL.No</th>
+                            <th>Description</th>
+                            <th>Date of upload</th>
+                            <th>Format</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filesTableBodyManuals">
+                        <!-- Files will be populated here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 		        <!-- Forms & Proforma Tab -->
         <div class="tab-content active" id="forms">
@@ -74,41 +110,7 @@
             </div>
         </div>
         
-        <!-- User Manuals & Guides Tab -->
-        <div class="tab-content" id="manuals">
-            <div class="table-container">
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" id="searchInputManuals" placeholder="Search manuals by name or type...">
-                        <span class="search-icon">🔍</span>
-                    </div>
-                    <div class="table-info" id="tableInfoManuals"></div>
-                </div>
-                
-                <div class="loading" id="loadingMessageManuals">
-                    Loading manuals...
-                </div>
-                
-                <div class="error" id="errorMessageManuals" style="display: none;">
-                    Error loading manuals. Please check your connection and try again.
-                </div>
-                
-                <table id="filesTableManuals" class="display" style="display: none; width:100%">
-                    <thead>
-                        <tr>
-                            <th>SL.No</th>
-                            <th>Description</th>
-                            <th>Date of upload</th>
-                            <th>Format</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="filesTableBodyManuals">
-                        <!-- Files will be populated here by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    
         
         <!-- Orders & Circulars Tab -->
         <div class="tab-content" id="orders">
