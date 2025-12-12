@@ -1,5 +1,6 @@
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
   <!-- Add Select2 CSS -->
@@ -7,129 +8,333 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
   <!-- Flatpickr for date picker -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
-<body style="background-color: #d7e2ff6e;">
-  <div class="container py-5" style="min-width:98%">
+<body style="background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%); min-height: 100vh; font-family: 'Roboto', sans-serif;">
+  <div class="container py-3 py-md-4">
+    <!-- Header Card -->
+    <div class="card mb-4 shadow-sm border-0" style="background: linear-gradient(135deg, #1a237e 0%, #283593 100%);">
+      <div class="card-body text-center p-4">
+        <div class="d-flex align-items-center justify-content-center mb-3">
+          <i class="bi bi-person-badge text-white me-3" style="font-size: 2.5rem;"></i>
+          <h1 class="h3 mb-0 text-white" style="font-family: 'Poppins', sans-serif; font-weight: 600;">Employee ID Card Form</h1>
+        </div>
+        <p class="text-white-50 mb-0" style="font-size: 1.1rem;">District Treasury, Trivandrum</p>
+      </div>
+    </div>
+
     <div class="info-item aos-init aos-animate" data-aos="fade" data-aos-delay="300">
       <form id="employeeForm" method="post" class="php-email-form aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
-        <h3>Employee ID Card Form | District Treasury, Trivandrum</h3><hr><br>
-        <div class="row gy-4">
-          <!-- Hidden Timestamp field -->
-          <input type="hidden" name="timestamp" id="timestampField">
-		  
-		  <div class="col-md-12">
-            <label for="officeName" class="form-label">Treasury</label>
-            <select class="form-select select2" name="officeName" id="officeName" required>
-              <option value="" selected disabled>Select Office</option>
-              <!-- Options will be loaded dynamically from Google Sheet -->
-            </select>
-          </div>
-          
-          
-          <div class="col-md-6">
-            <label for="employeeName" class="form-label">Name of Employee</label>
-            <input type="text" class="form-control" name="employeeName" id="employeeName" placeholder="Full Name" required oninput="this.value = this.value.toUpperCase()">
-          </div>
-          
-          <div class="col-md-6">
-            <label for="pen" class="form-label">PEN</label>
-            <input type="text" class="form-control" name="pen" id="pen" placeholder="PEN Number" required oninput="this.value = this.value.toUpperCase()">
-          </div>
-          
-          <div class="col-md-12">
-            <label for="designation" class="form-label">Designation</label>
-            <select class="form-select select2" name="designation" id="designation" required>
-              <option value="" selected disabled>Select Designation</option>
-              <!-- Options will be loaded dynamically from Google Sheet -->
-            </select>
-          </div>
-		  
-		   <div class="col-md-4">
-            <label for="bloodGroup" class="form-label">Employee Blood Group</label>
-            <select class="form-select" name="bloodGroup" id="bloodGroup" required>
-              <option value="" selected disabled>Select Blood Group</option>
-              <option value="A+">A+</option>
-              <option value="A-">A-</option>
-              <option value="B+">B+</option>
-              <option value="B-">B-</option>
-              <option value="AB+">AB+</option>
-              <option value="AB-">AB-</option>
-              <option value="O+">O+</option>
-              <option value="O-">O-</option>
-            </select>
-          </div>
-		  
-           <div class="col-md-4">
-            <label for="dob" class="form-label">Date of Birth</label>
-            <input type="text" class="form-control datepicker" name="dob" id="dob" placeholder="DD/MM/YYYY" required>
-          </div>
-          
-          <div class="col-md-4">
-            <label for="retirementDate" class="form-label">Date of Retirement</label>
-            <input type="text" class="form-control datepicker" name="retirementDate" id="retirementDate" placeholder="DD/MM/YYYY" required>
-          </div>
-		  
-		     
-		  
-       
-          <div class="col-md-12">
-            <label for="houseName" class="form-label">Address Line 1</label>
-            <input type="text" class="form-control" name="houseName" id="houseName" placeholder="House Name & No. details" required oninput="this.value = this.value.toUpperCase()">
-          </div>
-          
-          <div class="col-md-12">
-            <label for="locality" class="form-label">Address Line 2</label>
-            <input type="text" class="form-control" name="locality" id="locality" placeholder="Locality/Area" required oninput="this.value = this.value.toUpperCase()">
-          </div>
-          
-          <div class="col-md-12">
-            <label for="townCity" class="form-label">Address Line 3</label>
-            <input type="text" class="form-control" name="townCity" id="townCity" placeholder="" required oninput="this.value = this.value.toUpperCase()">
-          </div>
-          
-          <div class="col-md-4">
-            <label for="pinCode" class="form-label">Pin Code</label>
-            <input type="text" class="form-control" name="pinCode" id="pinCode" placeholder="Pin Code" required pattern="[0-9]{6}" title="6-digit pin code">
-          </div>
-          
-		   
-          <div class="col-md-4">
-            <label for="mobileNumber" class="form-label">Employee Mobile Number</label>
-            <input type="tel" class="form-control" name="mobileNumber" id="mobileNumber" placeholder="Mobile Number" required>
-          </div>
-		  
-          <div class="col-md-4">
-            <label for="residencePhone" class="form-label">Residence Contact Number</label>
-            <input type="tel" class="form-control" name="residencePhone" id="residencePhone" placeholder="Residence Phone">
-          </div>
-         
-          
-          <div class="col-md-4">
-            <label for="email" class="form-label">Employee CRU/MAIL ID</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="CRU Email ID" required>
-          </div>
-          
-          <div class="col-md-4">
-            <label for="idNumber" class="form-label">Driving License No/ Election ID No.</label>
-            <input type="text" class="form-control" name="idNumber" id="idNumber" placeholder="ID Number" oninput="this.value = this.value.toUpperCase()">
-          </div>
-		  
-		  <div class="col-md-4">
-            <label for="pan" class="form-label">Employee PAN</label>
-            <input type="text" class="form-control" name="pan" id="pan" placeholder="PAN Number" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" title="First 5 letters, then 4 numbers, then 1 letter (e.g., ABCDE1234F)" oninput="this.value = this.value.toUpperCase()">
-          </div>
-          
-          <div class="col-12 text-center mt-4">
-            <!-- Color Dot Spinner hidden by default -->
-            <div id="spinner" class="dot-spinner" style="display: none;">
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
+        <div class="card shadow-lg border-0">
+          <div class="card-header py-3" style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); border-bottom: 3px solid #4a6bff;">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-clipboard-data text-primary me-2" style="font-size: 1.5rem;"></i>
+              <h4 class="mb-0 text-dark" style="font-family: 'Poppins', sans-serif; font-weight: 600;">Employee Details</h4>
             </div>
-            <!-- Submit Button -->
-            <button type="submit" id="submitBtn" class="btn btn-primary px-4 py-2">Save & Review</button>
-			<!-- Image Upload Button -->
-            <a type="" role="button" id="externalBtn" href=" https://docs.google.com/forms/d/e/1FAIpQLSfsUCdJncZ293vXjyGH_jJc4wSbWTxVZ9yArNPhoLVgDGT1-A/viewform" target="_blank" class="btn btn-warning px-4 py-2">Upload Photo & Signature</a>
+            <p class="mb-0 text-muted mt-1" style="font-size: 0.9rem;">Fill all fields carefully</p>
+          </div>
+          
+          <div class="card-body p-3 p-md-4">
+            <!-- Hidden Timestamp field -->
+            <input type="hidden" name="timestamp" id="timestampField">
+            
+            <div class="row g-3">
+              <!-- Treasury Section -->
+              <div class="col-12">
+                <div class="form-section mb-4 p-3 rounded" style="background-color: #f8f9ff; border-left: 4px solid #4a6bff;">
+                  <label for="officeName" class="form-label fw-bold text-primary">
+                    <i class="bi bi-building me-2"></i>Treasury Office
+                  </label>
+                  <select class="form-select select2" name="officeName" id="officeName" required 
+                          data-placeholder="Select your treasury office" style="height: 50px;">
+                    <option value="" selected disabled>Select Office</option>
+                    <!-- Options will be loaded dynamically from Google Sheet -->
+                  </select>
+                  <div class="form-text text-muted mt-1">
+                    <i class="bi bi-info-circle me-1"></i>Select your lean treasury office
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Personal Details Card -->
+              <div class="col-12">
+                <div class="card mb-4 border-0 shadow-sm">
+                  <div class="card-header bg-light py-2">
+                    <h6 class="mb-0 text-dark" style="font-family: 'Poppins', sans-serif;">
+                      <i class="bi bi-person-circle me-2 text-primary"></i>Personal Information
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-12 col-md-6">
+                        <label for="employeeName" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Full Name
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-person text-primary"></i>
+                          </span>
+                          <input type="text" class="form-control border-start-0" name="employeeName" id="employeeName" 
+                                 placeholder="Enter full name" required oninput="this.value = this.value.toUpperCase()">
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-md-6">
+                        <label for="pen" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> PEN Number
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-123 text-primary"></i>
+                          </span>
+                          <input type="text" class="form-control border-start-0" name="pen" id="pen" 
+                                 placeholder="PEN Number" required oninput="this.value = this.value.toUpperCase()">
+                        </div>
+                      </div>
+                      
+                      <div class="col-12">
+                        <label for="designation" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Designation
+                        </label>
+                        <select class="form-select select2" name="designation" id="designation" required 
+                                data-placeholder="Select your designation" style="height: 50px;">
+                          <option value="" selected disabled>Select Designation</option>
+                          <!-- Options will be loaded dynamically from Google Sheet -->
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Medical & Dates Card -->
+              <div class="col-12">
+                <div class="card mb-4 border-0 shadow-sm">
+                  <div class="card-header bg-light py-2">
+                    <h6 class="mb-0 text-dark" style="font-family: 'Poppins', sans-serif;">
+                      <i class="bi bi-calendar-heart me-2 text-primary"></i>Medical & Important Dates
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-12 col-md-4">
+                        <label for="bloodGroup" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Blood Group
+                        </label>
+                        <select class="form-select" name="bloodGroup" id="bloodGroup" required style="height: 50px;">
+                          <option value="" selected disabled>Select Blood Group</option>
+                          <option value="A+">A+</option>
+                          <option value="A-">A-</option>
+                          <option value="B+">B+</option>
+                          <option value="B-">B-</option>
+                          <option value="AB+">AB+</option>
+                          <option value="AB-">AB-</option>
+                          <option value="O+">O+</option>
+                          <option value="O-">O-</option>
+                        </select>
+                      </div>
+                      
+                      <div class="col-12 col-md-4">
+                        <label for="dob" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Date of Birth
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-calendar3 text-primary"></i>
+                          </span>
+                          <input type="text" class="form-control border-start-0 datepicker" name="dob" id="dob" 
+                                 placeholder="DD/MM/YYYY" required style="height: 50px;">
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-md-4">
+                        <label for="retirementDate" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Retirement Date
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-calendar-check text-primary"></i>
+                          </span>
+                          <input type="text" class="form-control border-start-0 datepicker" name="retirementDate" id="retirementDate" 
+                                 placeholder="DD/MM/YYYY" required style="height: 50px;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Address Card -->
+              <div class="col-12">
+                <div class="card mb-4 border-0 shadow-sm">
+                  <div class="card-header bg-light py-2">
+                    <h6 class="mb-0 text-dark" style="font-family: 'Poppins', sans-serif;">
+                      <i class="bi bi-house-door me-2 text-primary"></i>Contact Address
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-12">
+                        <label for="houseName" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Address Line 1 (House Name & No.)
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-house text-primary"></i>
+                          </span>
+                          <input type="text" class="form-control border-start-0" name="houseName" id="houseName" 
+                                 placeholder="House name & number" required oninput="this.value = this.value.toUpperCase()">
+                        </div>
+                      </div>
+                      
+                      <div class="col-12">
+                        <label for="locality" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Address Line 2 (Locality/Area)
+                        </label>
+                        <input type="text" class="form-control" name="locality" id="locality" 
+                               placeholder="Locality/Area details" required oninput="this.value = this.value.toUpperCase()">
+                      </div>
+                      
+                      <div class="col-12">
+                        <label for="townCity" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Address Line 3 (Town/City)
+                        </label>
+                        <input type="text" class="form-control" name="townCity" id="townCity" 
+                               placeholder="Town/City" required oninput="this.value = this.value.toUpperCase()">
+                      </div>
+                      
+                      <div class="col-12 col-md-6 col-lg-4">
+                        <label for="pinCode" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Pin Code
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-mailbox text-primary"></i>
+                          </span>
+                          <input type="text" class="form-control border-start-0" name="pinCode" id="pinCode" 
+                                 placeholder="6-digit code" required pattern="[0-9]{6}" title="6-digit pin code">
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-md-6 col-lg-4">
+                        <label for="mobileNumber" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> Mobile Number
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-phone text-primary"></i>
+                          </span>
+                          <input type="tel" class="form-control border-start-0" name="mobileNumber" id="mobileNumber" 
+                                 placeholder="10-digit number" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-md-6 col-lg-4">
+                        <label for="residencePhone" class="form-label fw-semibold">
+                          Residence Phone
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-telephone text-primary"></i>
+                          </span>
+                          <input type="tel" class="form-control border-start-0" name="residencePhone" id="residencePhone" 
+                                 placeholder="Optional">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Additional Information Card -->
+              <div class="col-12">
+                <div class="card mb-4 border-0 shadow-sm">
+                  <div class="card-header bg-light py-2">
+                    <h6 class="mb-0 text-dark" style="font-family: 'Poppins', sans-serif;">
+                      <i class="bi bi-card-checklist me-2 text-primary"></i>Additional Information
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-3">
+                      <div class="col-12 col-md-4">
+                        <label for="email" class="form-label fw-semibold">
+                          <span class="text-danger">*</span> CRU/Email ID
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-envelope text-primary"></i>
+                          </span>
+                          <input type="email" class="form-control border-start-0" name="email" id="email" 
+                                 placeholder="official@email.com" required>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-md-4">
+                        <label for="idNumber" class="form-label fw-semibold">
+                          DL/Election ID No.
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-card-text text-primary"></i>
+                          </span>
+                          <input type="text" class="form-control border-start-0" name="idNumber" id="idNumber" 
+                                 placeholder="ID Number" oninput="this.value = this.value.toUpperCase()">
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-md-4">
+                        <label for="pan" class="form-label fw-semibold">
+                          PAN Number
+                        </label>
+                        <div class="input-group">
+                          <span class="input-group-text bg-light border-end-0">
+                            <i class="bi bi-credit-card text-primary"></i>
+                          </span>
+                          <input type="text" class="form-control border-start-0" name="pan" id="pan" 
+                                 placeholder="ABCDE1234F" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" 
+                                 title="First 5 letters, then 4 numbers, then 1 letter" 
+                                 oninput="this.value = this.value.toUpperCase()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Action Buttons -->
+              <div class="col-12">
+                <div class="card border-0 shadow-sm mt-4">
+                  <div class="card-body p-4 text-center">
+                    <!-- Color Dot Spinner hidden by default -->
+                    <div id="spinner" class="dot-spinner mb-3" style="display: none;">
+                      <div class="dot" style="background-color: #4a6bff;"></div>
+                      <div class="dot" style="background-color: #4a6bff;"></div>
+                      <div class="dot" style="background-color: #4a6bff;"></div>
+                    </div>
+                    
+                    <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                      <!-- Submit Button -->
+                      <button type="submit" id="submitBtn" class="btn btn-primary btn-lg px-4 py-3 shadow-sm" 
+                              style="min-width: 200px; background: linear-gradient(135deg, #4a6bff 0%, #3a56e0 100%); border: none;">
+                        <i class="bi bi-check-circle me-2"></i>Save & Review
+                      </button>
+                      
+                      <!-- Image Upload Button -->
+                      <a id="externalBtn" href="https://docs.google.com/forms/d/e/1FAIpQLSfsUCdJncZ293vXjyGH_jJc4wSbWTxVZ9yArNPhoLVgDGT1-A/viewform" 
+                         target="_blank" class="btn btn-warning btn-lg px-4 py-3 shadow-sm"
+                         style="min-width: 200px; background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%); border: none;">
+                        <i class="bi bi-camera me-2"></i>Upload Photo & Signature
+                      </a>
+                    </div>
+                    
+                    <div class="mt-3 text-muted" style="font-size: 0.85rem;">
+                      <i class="bi bi-info-circle me-1"></i>Fill all details before uploading photo & signature
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </form>
@@ -140,22 +345,89 @@
   <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="previewModalLabel">Review Your Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-header" style="background: linear-gradient(135deg, #4a6bff 0%, #3a56e0 100%);">
+          <h5 class="modal-title text-white" id="previewModalLabel">
+            <i class="bi bi-eye me-2"></i>Review Your Details
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" id="previewContent">
+        <div class="modal-body" id="previewContent" style="max-height: 60vh; overflow-y: auto;">
           <!-- Preview content will be inserted here -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Reject & Edit</button>
-          <button type="button" class="btn btn-primary" id="confirmSubmit">Accept & Submit</button>
+          <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+            <i class="bi bi-pencil me-1"></i>Edit Details
+          </button>
+          <button type="button" class="btn btn-primary px-4" id="confirmSubmit" 
+                  style="background: linear-gradient(135deg, #4a6bff 0%, #3a56e0 100%); border: none;">
+            <i class="bi bi-check-circle me-1"></i>Accept & Submit
+          </button>
         </div>
       </div>
     </div>
   </div>
 
   <style>
+    /* Custom CSS for mobile optimization */
+    :root {
+      --primary-color: #4a6bff;
+      --secondary-color: #6c757d;
+      --accent-color: #ffc107;
+    }
+    
+    * {
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Form styling */
+    .php-email-form {
+      background: transparent;
+    }
+    
+    .form-control, .form-select {
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(74, 107, 255, 0.25);
+    }
+    
+    .input-group-text {
+      border-radius: 8px 0 0 8px;
+      background-color: #f8f9fa;
+    }
+    
+    .form-label {
+      font-weight: 500;
+      color: #495057;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .form-section {
+      background-color: #f8f9ff;
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    
+    /* Card styling */
+    .card {
+      border-radius: 12px;
+      border: none;
+    }
+    
+    .card-header {
+      border-radius: 12px 12px 0 0 !important;
+    }
+    
     /* Dot Spinner CSS */
     .dot-spinner {
       display: flex;
@@ -164,27 +436,27 @@
       gap: 10px;
       margin-top: 10px;
     }
-
+    
     .dot {
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background-color: #007bff;
+      background-color: var(--primary-color);
       animation: dotAnimation 1.2s infinite ease-in-out;
     }
-
+    
     .dot:nth-child(1) {
       animation-delay: 0s;
     }
-
+    
     .dot:nth-child(2) {
       animation-delay: 0.2s;
     }
-
+    
     .dot:nth-child(3) {
       animation-delay: 0.4s;
     }
-
+    
     @keyframes dotAnimation {
       0% {
         transform: scale(0);
@@ -197,58 +469,185 @@
       }
     }
     
-    /* Form styling */
-    .php-email-form {
-      background: #fff;
-      padding: 30px;
+    /* Button styling */
+    .btn {
       border-radius: 8px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    }
-    
-    .php-email-form .form-control {
-      height: 44px;
-      padding: 10px 15px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-    
-    .php-email-form textarea.form-control {
-      min-height: 120px;
-    }
-    
-    .php-email-form label {
       font-weight: 500;
-      margin-bottom: 8px;
-      display: block;
+      transition: all 0.3s ease;
     }
     
-    .icon {
-      font-size: 2.5rem;
-      color: #0d6efd;
-      margin-bottom: 15px;
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(74, 107, 255, 0.3);
     }
-
-    /* Select2 styling */
-    .select2-container--bootstrap-5 .select2-selection {
-      height: 44px;
-      padding: 5px 15px;
-      border: 1px solid #ddd;
+    
+    .btn-warning:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
     }
     
     /* Preview modal styling */
     .preview-item {
-      margin-bottom: 10px;
-      padding-bottom: 10px;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
       border-bottom: 1px solid #eee;
     }
     
     .preview-label {
-      font-weight: bold;
+      font-weight: 600;
       color: #555;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
     }
     
     .preview-value {
       color: #333;
+      font-size: 1rem;
+      padding: 8px 12px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      word-break: break-word;
+    }
+    
+    /* Select2 mobile optimization */
+    .select2-container--bootstrap-5 .select2-selection {
+      height: 50px !important;
+      padding: 10px 15px;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    
+    /* Mobile-specific adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      
+      .card-body {
+        padding: 1rem !important;
+      }
+      
+      .btn-lg {
+        padding: 0.75rem 1rem !important;
+        font-size: 1rem;
+        min-width: 100% !important;
+      }
+      
+      .modal-dialog {
+        margin: 0.5rem;
+      }
+      
+      .modal-body {
+        padding: 1rem;
+      }
+      
+      .input-group-text {
+        padding: 0.5rem;
+      }
+      
+      .form-control, .form-select {
+        font-size: 16px !important; /* Prevents iOS zoom on focus */
+      }
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      h4 {
+        font-size: 1.25rem;
+      }
+    }
+    
+    /* For very small screens */
+    @media (max-width: 576px) {
+      .row.g-3 > [class*="col-"] {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      
+      .card-header h6 {
+        font-size: 0.95rem;
+      }
+      
+      .form-label {
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* iOS form input fixes */
+    input, select, textarea {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    
+    /* Hide number input spinners */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    
+    /* Required field asterisk */
+    .text-danger {
+      color: #dc3545 !important;
+    }
+    
+    /* Progress indicator (optional) */
+    .progress-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .progress-indicator::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background-color: #e9ecef;
+      z-index: 1;
+    }
+    
+    .step {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      flex: 1;
+    }
+    
+    .step-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #e9ecef;
+      color: #6c757d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.5rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+    
+    .step.active .step-circle {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .step-label {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+    
+    .step.active .step-label {
+      color: var(--primary-color);
+      font-weight: 500;
     }
   </style>
 
@@ -258,17 +657,29 @@
       const now = new Date();
       document.getElementById('timestampField').value = now.toISOString();
       
-      // Initialize Select2
+      // Initialize Select2 with mobile-friendly options
       $('.select2').select2({
         theme: 'bootstrap-5',
         placeholder: 'Select option',
-        allowClear: true
+        allowClear: true,
+        dropdownAutoWidth: true,
+        width: '100%',
+        dropdownParent: $('#employeeForm')
       });
 
-      // Initialize date pickers
+      // Initialize date pickers with mobile-friendly config
       flatpickr(".datepicker", {
         dateFormat: "d/m/Y",
-        allowInput: true
+        allowInput: true,
+        disableMobile: false,
+        clickOpens: true,
+        prevArrow: '<i class="bi bi-chevron-left"></i>',
+        nextArrow: '<i class="bi bi-chevron-right"></i>',
+        onReady: function(selectedDates, dateStr, instance) {
+          if (window.innerWidth < 768) {
+            instance.mobileInput.setAttribute('inputmode', 'none');
+          }
+        }
       });
 
       // Load designations and offices from Google Sheet
@@ -285,11 +696,22 @@
       document.getElementById("confirmSubmit").addEventListener("click", function() {
         submitForm();
       });
+      
+      // Add touch feedback for buttons
+      document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('touchstart', function() {
+          this.classList.add('active');
+        });
+        
+        button.addEventListener('touchend', function() {
+          this.classList.remove('active');
+        });
+      });
     });
 
     function showPreviewModal() {
       // Create preview content
-      let previewHTML = '<div class="row">';
+      let previewHTML = '<div class="row g-3">';
       
       // Get all form elements
       const form = document.getElementById('employeeForm');
@@ -301,7 +723,8 @@
         
         // Skip buttons, hidden fields, and non-input elements
         if (element.type === 'submit' || element.type === 'button' || 
-            element.type === 'hidden' || element.tagName === 'BUTTON') {
+            element.type === 'hidden' || element.tagName === 'BUTTON' || 
+            element.tagName === 'A') {
           continue;
         }
         
@@ -310,7 +733,12 @@
         if (element.id) {
           const label = form.querySelector(`label[for="${element.id}"]`);
           if (label) {
-            labelText = label.textContent;
+            // Remove asterisk and icons from label text
+            labelText = label.textContent.replace('*', '').trim();
+            const icon = label.querySelector('i');
+            if (icon) {
+              labelText = labelText.replace(icon.textContent, '').trim();
+            }
           }
         }
         
@@ -335,7 +763,7 @@
         
         // Add to preview HTML
         previewHTML += `
-          <div class="col-md-6 preview-item">
+          <div class="col-12 preview-item">
             <div class="preview-label">${labelText}</div>
             <div class="preview-value">${value}</div>
           </div>
@@ -350,6 +778,9 @@
       // Show the modal
       const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
       previewModal.show();
+      
+      // Scroll to top of modal content
+      document.getElementById('previewContent').scrollTop = 0;
     }
 
     function submitForm() {
@@ -406,11 +837,22 @@
           // Show SweetAlert success message with the reference ID
           Swal.fire({
             title: 'Success!',
-            html: 'Employee '+referenceId+ ' details saved successfully. <br> Please update photograph and signature.' ,
+            html: `<div class="text-center">
+                     <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                     <h4 class="mt-3">Employee ${referenceId}</h4>
+                     <p class="mt-2">Details saved successfully.</p>
+                     <p class="text-muted">Please update photograph and signature.</p>
+                   </div>`,
             icon: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#4a6bff',
+            customClass: {
+              popup: 'rounded-3'
+            }
           }).then(function() {
             form.reset(); // Reset the form after submission
+            // Reset Select2
+            $('.select2').val(null).trigger('change');
           });
         } else {
           // Error handling if the form submission fails
@@ -418,7 +860,8 @@
             title: 'Error!',
             text: 'There was an issue submitting the form. Please try again.',
             icon: 'error',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
           });
         }
       };
@@ -478,7 +921,8 @@
             title: 'Error!',
             text: 'Could not load designations. Please refresh the page or contact support.',
             icon: 'error',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
           });
         })
         .finally(() => {
@@ -540,7 +984,8 @@
             title: 'Error!',
             text: 'Could not load offices. Please refresh the page or contact support.',
             icon: 'error',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#dc3545'
           });
         })
         .finally(() => {
@@ -557,9 +1002,46 @@
       
       if (pan.length === 10 && !panPattern.test(pan)) {
         e.target.setCustomValidity('PAN must be in format: ABCDE1234F (5 letters, 4 numbers, 1 letter)');
+        e.target.classList.add('is-invalid');
       } else {
         e.target.setCustomValidity('');
+        e.target.classList.remove('is-invalid');
       }
+    });
+    
+    // Mobile number validation
+    document.getElementById('mobileNumber').addEventListener('input', function(e) {
+      const mobile = e.target.value.replace(/\D/g, '');
+      e.target.value = mobile;
+      
+      if (mobile.length === 10) {
+        e.target.classList.remove('is-invalid');
+      } else if (mobile.length > 0) {
+        e.target.classList.add('is-invalid');
+      }
+    });
+    
+    // Pin code validation
+    document.getElementById('pinCode').addEventListener('input', function(e) {
+      const pin = e.target.value.replace(/\D/g, '');
+      e.target.value = pin;
+      
+      if (pin.length === 6) {
+        e.target.classList.remove('is-invalid');
+      } else if (pin.length > 0) {
+        e.target.classList.add('is-invalid');
+      }
+    });
+    
+    // Auto-advance to next input on mobile (optional enhancement)
+    document.querySelectorAll('input, select').forEach((input, index, inputs) => {
+      input.addEventListener('input', function(e) {
+        if (window.innerWidth < 768 && 
+            this.value.length === this.maxLength && 
+            inputs[index + 1]) {
+          inputs[index + 1].focus();
+        }
+      });
     });
   </script>
   
