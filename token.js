@@ -209,7 +209,7 @@ async function fetchTokenData() {
         const response = await fetch(url);
         
         if (!response.ok) {
-            throw new Error(`Google Sheets API Error: ${response.status}`);
+            throw new Error(` API Error: ${response.status}`);
         }
         
         const data = await response.json();
@@ -230,7 +230,7 @@ async function fetchTokenData() {
         
         if (error.message.includes('Failed to fetch')) {
             errorMessage = 'Network error: Cannot connect to server';
-        } else if (error.message.includes('Google Sheets API')) {
+        } else if (error.message.includes(' API')) {
             errorMessage = 'Server error: ' + error.message;
         } else if (error.message.includes('No valid token data')) {
             errorMessage = 'No token data available';
@@ -249,7 +249,7 @@ async function fetchTokenData() {
 // Process the data from Google Sheets
 function processData(values) {
     if (!values || values.length < 2) {
-        console.error('No data received from Google Sheets');
+        console.error('No data received from Database');
         return null;
     }
     
