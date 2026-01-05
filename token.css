@@ -218,7 +218,117 @@ th:nth-child(3), td:nth-child(3) {
     font-weight: 600;
     font-size: 2.5vw;
 }
+/* QR Code Error Display Styles */
+.qr-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
 
+.qr-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.qr-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.qr-image {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border: 3px solid white;
+}
+
+.qr-fallback {
+    text-align: center;
+}
+
+.qr-placeholder {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    padding: 20px;
+}
+
+.qr-placeholder-text {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.qr-placeholder-url {
+    font-size: 12px;
+    opacity: 0.8;
+    word-break: break-all;
+    text-align: center;
+}
+
+.qr-note {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Error container styles (if not already present) */
+.error-container {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    max-width: 500px;
+}
+
+.error-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.error-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.error-message-text {
+    font-size: 16px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+.error-instruction {
+    font-size: 14px;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.retry-info {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-top: 20px;
+}
 /* Animation for current token */
 @keyframes pulse {
     0% { transform: scale(1); }
