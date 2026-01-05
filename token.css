@@ -284,8 +284,8 @@ th:nth-child(3), td:nth-child(3) {
 /* Connection status indicator */
 .connection-status {
     position: fixed;
-    top: 30px;
-    left: 50px;
+    top: 10px;
+    left: 10px;
     width: 15px;
     height: 15px;
     border-radius: 50%;
