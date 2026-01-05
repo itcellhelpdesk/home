@@ -83,6 +83,8 @@
         .table-container {
             flex: 1;
             overflow-y: auto;
+			position: relative; /* Ensure stacking context */
+    z-index: 1;
         }
         
         table {
@@ -103,11 +105,14 @@
         
         th {
             background: linear-gradient(to bottom, #3498db, #2980b9);
-            color: #ffffff;
-            position: sticky;
-            top: 0;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            font-size: 2.5vw;
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    font-size: 2.5vw;
+    z-index: 10; /* Add this line to ensure header stays on top */
+	 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
         }
         
         tr {
@@ -321,10 +326,10 @@
                 height: 70px;
             }
             tr { height: 70px; }
-            th { font-size: 2.5vw; }
+            th { font-size: 3.5vw; }
             .current-token { font-size: 3.5vw; }
             .queued-token, .more-tokens-indicator, .no-queue-message { 
-                font-size: 2.5vw;
+                font-size: 3.5vw;
                 padding: 5px 8px; 
                 min-width: 30px;
             }
