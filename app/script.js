@@ -104,30 +104,48 @@ function setupEventListeners() {
 }
 
 // Load News Reel
+// Enhanced Load News Reel
 function loadNewsReel() {
-    const reelSheetName = 'Scroll-reel';
-    const reelUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${reelSheetName}?key=${apiKey}`;
+    const reelSheetName = 'ScrollReel';
+    // Fetch range A2:A for scroll reel content
+    const reelUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${reelSheetName}!A2:A?key=${apiKey}`;
     
     fetch(reelUrl)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             const rows = data.values;
             let runningText = '';
-
-            if (rows && rows.length > 1) {
-                rows.slice(1).forEach(row => {
-                    if (row[0]) {
-                        runningText += row[0] + ' • ';
-                    }
-                });
+            
+            if (rows && rows.length > 0) {
+                // Filter out empty rows and trim whitespace
+                const nonEmptyRows = rows
+                    .filter(row => row && row[0] && row[0].toString().trim() !== '')
+                    .map(row => row[0].toString().trim());
+                
+                if (nonEmptyRows.length > 0) {
+                    // Join all non-empty rows with a separator
+                    runningText = nonEmptyRows.join(' • ');
+                } else {
+                    runningText = 'Welcome to IT Cell HelpDesk - Your one-stop solution for IT support';
+                }
             } else {
                 runningText = 'Welcome to IT Cell HelpDesk - Your one-stop solution for IT support';
             }
-
+            
+            // Update the marquee content
             newsReel.textContent = runningText;
+            
+            // Optionally, you can add a console log to debug
+            console.log('Scroll reel loaded:', runningText);
         })
         .catch(error => {
-            console.error('Error loading news:', error);
+            console.error('Error loading scroll reel:', error);
+            // Fallback content
             newsReel.textContent = 'Welcome to IT Cell HelpDesk - Stay connected with latest updates';
         });
 }
