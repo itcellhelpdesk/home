@@ -5,7 +5,7 @@ const SHEET_NAME = '101';
 const SETTINGS_SHEET = 'settings';
 
 // Voice files configuration
-const VOICE_BASE_URL = './voices/';
+const VOICE_BASE_URL = 'https://itcellhelpdesk.github.io/home/voices/';
 
 // Store section voice files that have been loaded
 const sectionVoiceCache = new Map();
@@ -27,7 +27,7 @@ let fetchRetryCount = 0;
 const MAX_RETRIES = 3;
 
 // Preload notification bell sound
-const notificationBell = new Audio("./voices/bell.mp3");
+const notificationBell = new Audio("https://itcellhelpdesk.github.io/home/voices/bell.mp3");
 
 // Common voice files to preload - ONLY DIGIT FILES
 const COMMON_VOICE_FILES = [
