@@ -456,6 +456,7 @@ function generateTable(data) {
 }
 
 // Show error messages
+// Show error messages with QR code
 function showErrorMessage(message) {
     const errorHtml = `
         <div class="error-container">
@@ -463,6 +464,22 @@ function showErrorMessage(message) {
             <div class="error-title">Connection Error</div>
             <div class="error-message-text">${message}</div>
             <div class="error-instruction">Please check network connection</div>
+            
+            <div class="qr-section">
+                <div class="qr-title">Scan This QR Code to Track Your Token</div>
+                <div class="qr-image-container">
+                    <img src="./tokentrackerqr.png" alt="Token Tracker QR Code" class="qr-image" 
+                         onerror="this.style.display='none'; document.querySelector('.qr-fallback').style.display='block'">
+                    <div class="qr-fallback" style="display: none;">
+                        <div class="qr-placeholder">
+                            <div class="qr-placeholder-text">QR Code Image</div>
+                            <div class="qr-placeholder-url">./tokentrackerqr.png</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="qr-note">Use your phone's camera to scan the QR code</div>
+            </div>
+            
             <div class="retry-info">Auto-retrying...</div>
         </div>
     `;
