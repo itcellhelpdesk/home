@@ -172,53 +172,53 @@
         }
         
         // Function to initialize DataTable for a specific tab
-        function initializeDataTable(tab) {
-            const tableId = `filesTable${capitalizeFirst(tab)}`;
-            const searchInput = document.getElementById(`searchInput${capitalizeFirst(tab)}`);
-            const tableInfo = document.getElementById(`tableInfo${capitalizeFirst(tab)}`);
-            
-            dataTables[tab] = $(`#${tableId}`).DataTable({
-                "pageLength": 10,
-                "lengthMenu": [5, 10, 25, 50],
-                "dom": '<"top"if>rt<"bottom"lp><"clear">',
-                "language": {
-                    "emptyTable": "No files found",
-                    "info": "Showing _START_ to _END_ of _TOTAL_ files",
-                    "infoEmpty": "Showing 0 to 0 of 0 files",
-                    "infoFiltered": "(filtered from _MAX_ total files)",
-                    "lengthMenu": "Show _MENU_ files",
-                    "loadingRecords": "Loading...",
-                    "processing": "Processing...",
-                    "search": "Search:",
-                    "zeroRecords": "No matching files found",
-                    "paginate": {
-                        "first": "First",
-                        "last": "Last",
-                        "next": "Next",
-                        "previous": "Previous"
-                    }
-                },
-                "columnDefs": [
-                    { "orderable": true, "targets": [0, 1, 2, 3] },
-                    { "orderable": false, "targets": [4] }
-                ],
-                "order": [[2, 'desc']] // Default sort by date (newest first)
-            });
-            
-            // Custom search functionality
-            searchInput.addEventListener('keyup', function() {
-                dataTables[tab].search(this.value).draw();
-            });
-            
-            // Update table info on draw
-            dataTables[tab].on('draw', function() {
-                updateTableInfo(tab);
-            });
-            
-            // Initial table info update
-            updateTableInfo(tab);
-        }
-        
+      
+function initializeDataTable(tab) {
+    const tableId = `filesTable${capitalizeFirst(tab)}`;
+    const searchInput = document.getElementById(`searchInput${capitalizeFirst(tab)}`);
+    const tableInfo = document.getElementById(`tableInfo${capitalizeFirst(tab)}`);
+    
+    dataTables[tab] = $(`#${tableId}`).DataTable({
+        "pageLength": 10,
+        "lengthMenu": [5, 10, 25, 50],
+        "dom": '<"top"if>rt<"bottom"lp><"clear">',
+        "language": {
+            "emptyTable": "No files found",
+            "info": "Showing _START_ to _END_ of _TOTAL_ files",
+            "infoEmpty": "Showing 0 to 0 of 0 files",
+            "infoFiltered": "(filtered from _MAX_ total files)",
+            "lengthMenu": "Show _MENU_ files",
+            "loadingRecords": "Loading...",
+            "processing": "Processing...",
+            "search": "Search:",
+            "zeroRecords": "No matching files found",
+            "paginate": {
+                "first": "First",
+                "last": "Last",
+                "next": "Next",
+                "previous": "Previous"
+            }
+        },
+        "columnDefs": [
+            { "orderable": true, "targets": [0, 1, 2, 3] },
+            { "orderable": false, "targets": [4] }
+        ],
+        "order": [[0, 'asc']] // Changed from [[2, 'desc']] to [[0, 'asc']] - Sort by SL.No ascending
+    });
+    
+    // Custom search functionality
+    searchInput.addEventListener('keyup', function() {
+        dataTables[tab].search(this.value).draw();
+    });
+    
+    // Update table info on draw
+    dataTables[tab].on('draw', function() {
+        updateTableInfo(tab);
+    });
+    
+    // Initial table info update
+    updateTableInfo(tab);
+}
         // Function to update table information for a specific tab
         function updateTableInfo(tab) {
             const tableInfo = document.getElementById(`tableInfo${capitalizeFirst(tab)}`);
