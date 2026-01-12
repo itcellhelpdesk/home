@@ -92,10 +92,11 @@
         }
         
         .tab.active {
-            color: #4285f4;
-            border-bottom: 3px solid #4285f4;
-            background-color: #e8f0fe;
-        }
+    color: #ffffff;
+    border-bottom: 3px solid #f50062;
+    background-color: #4285f4;
+    border-radius: 50px;
+}
         
         .tab-content {
             display: none;
