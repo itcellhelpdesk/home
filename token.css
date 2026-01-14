@@ -1,3 +1,4 @@
+/* token.css - Updated with better visibility and error styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -19,7 +20,6 @@ body {
     height: 100%;
     width: 100%;
     background-color: #ffffff;
-   
     overflow: hidden;
     box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
 }
@@ -53,31 +53,32 @@ thead {
 
 th, td {
     text-align: center;
-    border: 2px solid #bdc3c7;
-    font-weight: 600;
+    border: 3px solid #3498db; /* Thicker border for better visibility */
+    font-weight: 700; /* Bolder font */
     padding: 20px 10px;
-    height: 80px;
+    height: 100px; /* Increased height for better visibility */
     vertical-align: middle;
 }
 
 th {
-    background: linear-gradient(to bottom, #3498db, #2980b9);
+    background: linear-gradient(to bottom, #2c3e50, #1a2530); /* Higher contrast */
     color: #ffffff;
     position: sticky;
     top: 0;
     z-index: 100;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-    font-size: 2.5vw;
-    border-bottom: 3px solid #2c3e50;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Stronger shadow */
+    font-size: 2.8vw; /* Slightly larger */
+    border-bottom: 4px solid #e74c3c; /* More prominent border */
+    letter-spacing: 1px; /* Better readability */
 }
 
 tr {
-    height: 80px;
-	color:#3498db;
+    height: 100px; /* Match increased height */
+    color: #2c3e50;
 }
 
 tr:nth-child(even) {
-    background-color: #ecf0f1;
+    background-color: #f8f9fa;
 }
 
 tr:nth-child(odd) {
@@ -85,113 +86,333 @@ tr:nth-child(odd) {
 }
 
 tr:hover {
-    background-color: #d5dbdb;
+    background-color: #e3f2fd;
+    transform: scale(1.01);
+    transition: transform 0.2s ease;
 }
 
+/* ENHANCED CURRENT TOKEN DISPLAY - High Visibility */
 .current-token {
-    font-weight: bold;
+    font-weight: 900; /* Extra bold */
     color: #e74c3c;
-    text-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
-    font-size: 4vw;
+    text-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+    font-size: 5.5vw; /* Much larger */
+    letter-spacing: 2px;
+    background: linear-gradient(145deg, #fff5f5, #ffebee);
+    padding: 15px;
+    border-radius: 12px;
+    border: 4px solid #e74c3c;
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+    display: inline-block;
+    min-width: 120px;
+    animation: pulse-glow 2s infinite alternate;
 }
 
+@keyframes pulse-glow {
+    0% {
+        box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+        transform: scale(1);
+    }
+    100% {
+        box-shadow: 0 0 25px rgba(231, 76, 60, 0.8);
+        transform: scale(1.05);
+    }
+}
+
+/* ENHANCED QUEUED TOKENS DISPLAY */
 .queued-tokens-container {
-    max-height: 60px;
+    max-height: 80px; /* Taller container */
     overflow: hidden;
     white-space: nowrap;
-    padding: 5px;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     position: relative;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 2px dashed #bdc3c7;
 }
 
 .queued-tokens-wrapper {
     display: inline-flex;
-    gap: 8px;
-    padding: 5px;
+    gap: 12px; /* More spacing between tokens */
+    padding: 10px;
     max-width: 100%;
     flex-wrap: nowrap;
-    overflow: hidden;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #3498db #ecf0f1;
+}
+
+.queued-tokens-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.queued-tokens-wrapper::-webkit-scrollbar-track {
+    background: #ecf0f1;
+    border-radius: 4px;
+}
+
+.queued-tokens-wrapper::-webkit-scrollbar-thumb {
+    background: #3498db;
+    border-radius: 4px;
 }
 
 .queued-token {
-    background-color: #3498db;
+    background: linear-gradient(145deg, #3498db, #2980b9);
     color: #ffffff;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
-    min-width: 40px;
+    padding: 12px 18px; /* Larger padding */
+    border-radius: 10px; /* More rounded */
+    font-weight: 800; /* Bolder */
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+    min-width: 60px; /* Wider */
     text-align: center;
     display: inline-block;
-    font-size: 3vw;
+    font-size: 3.8vw; /* Larger font */
     flex-shrink: 0;
+    border: 3px solid #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.queued-token:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(52, 152, 219, 0.6);
 }
 
 .more-tokens-indicator {
-    background-color: #7f8c8d;
+    background: linear-gradient(145deg, #7f8c8d, #95a5a6);
     color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 3vw;
-    margin-left: 5px;
-    cursor: default;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 3.5vw;
+    margin-left: 10px;
+    cursor: pointer;
     flex-shrink: 0;
+    border: 3px solid #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.more-tokens-indicator:hover {
+    background: linear-gradient(145deg, #95a5a6, #7f8c8d);
+    transform: translateY(-3px);
 }
 
 .no-queue-message {
     color: #7f8c8d;
     font-style: italic;
-    font-size: 1.8vw;
+    font-size: 2.5vw;
+    font-weight: 600;
+    padding: 15px;
+    background: #ecf0f1;
+    border-radius: 8px;
+    border: 2px dashed #bdc3c7;
 }
 
 /* Column width adjustments */
 th:nth-child(1), td:nth-child(1) {
     width: 35%;
+    font-size: 3.5vw; /* Larger counter text */
+    font-weight: 800;
 }
 
 th:nth-child(2), td:nth-child(2) {
-    width: 20%;
+    width: 25%; /* Slightly wider for current token */
 }
 
 th:nth-child(3), td:nth-child(3) {
-    width: 45%;
+    width: 40%; /* Adjusted for queued tokens */
 }
 
 /* Styles for rows with no queue */
 .no-queue-row {
-    background-color: #f9f9f9 !important;
-    color: #95a5a6;
+    background-color: #f0f7ff !important;
 }
 
 .no-queue-row .current-token {
-    color: #95a5a6;
+    color: #7f8c8d;
+    border-color: #95a5a6;
+    background: linear-gradient(145deg, #f5f5f5, #e8e8e8);
+}
+
+/* IMPROVED ERROR MESSAGE STYLING */
+.error-container {
+    display: flex;
+    flex-direction: row; /* Horizontal layout */
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 40px;
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); /* Attractive gradient */
+    border-radius: 0;
+    margin: 0;
+    color: white;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
+    gap: 40px;
+    min-height: 400px;
+}
+
+.error-content {
+    flex: 1;
+    text-align: left;
+    padding-right: 20px;
+}
+
+.error-icon {
+    font-size: 80px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.error-title {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 3.5vw;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.error-message-text {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 2.8vw;
+    color: #ffdddd;
+    margin-bottom: 25px;
+    max-width: 90%;
+    line-height: 1.6;
+    font-weight: 600;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.error-instruction {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 2.5vw;
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 5px solid #ffffff;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* QR Code Section - Improved */
+.qr-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 30px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    max-width: 400px;
+}
+
+.qr-title {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 2.2vw;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.4;
+}
+
+.qr-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 250px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.qr-image {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border: 5px solid white;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.qr-note {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 1.8vw;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    font-style: italic;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    margin-top: 15px;
+}
+
+.retry-info {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 2vw;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+    margin-top: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 12px 25px;
+    border-radius: 50px;
+    display: inline-block;
+    animation: pulse-light 2s infinite;
+}
+
+@keyframes pulse-light {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
 }
 
 /* Scroll reel styles */
 .scroll-reel-container {
-    background: linear-gradient(to right, #3498db, #2ecc71);
-    border-top: 2px solid #e74c3c;
-    border-bottom: 2px solid #e74c3c;
+    background: linear-gradient(to right, #2c3e50, #3498db);
+    border-top: 4px solid #e74c3c;
+    border-bottom: 4px solid #e74c3c;
     overflow: hidden;
     position: relative;
     display: none;
+    height: 50px;
 }
 
 .scroll-reel {
     white-space: nowrap;
-    animation: scroll 30s linear infinite;
+    animation: scroll 40s linear infinite;
 }
 
 .scroll-reel-content {
     display: inline-block;
     padding-right: 50px;
     color: #ffffff;
-    font-size: 2.2vw;
-    font-weight: bold;
+    font-size: 2.5vw;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
 }
 
 @keyframes scroll {
@@ -199,255 +420,117 @@ th:nth-child(3), td:nth-child(3) {
     100% { transform: translateX(-100%); }
 }
 
-.footer {
-    display: none;
-}
-
-.loading {
-    text-align: center;
-    padding: 40px;
-    color: #3498db;
-    font-weight: 600;
-    font-size: 2.5vw;
-}
-
-.error-message {
-    text-align: center;
-    padding: 40px;
-    color: #e74c3c;
-    font-weight: 600;
-    font-size: 2.5vw;
-}
-/* QR Code Error Display Styles */
-.qr-section {
-    margin: 20px 0;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    text-align: center;
-}
-
-.qr-title {
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 15px;
-}
-
-.qr-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px;
-}
-
-.qr-image {
-    max-width: 200px;
-    max-height: 200px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    border: 3px solid white;
-}
-
-.qr-fallback {
-    text-align: center;
-}
-
-.qr-placeholder {
-    width: 200px;
-    height: 200px;
-    /*background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    border: 2px dashed rgba(255, 255, 255, 0.3);
-    padding: 20px;
-}
-
-.qr-placeholder-text {
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.qr-placeholder-url {
-    font-size: 12px;
-    opacity: 0.8;
-    word-break: break-all;
-    text-align: center;
-}
-
-.qr-note {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 10px;
-    font-style: italic;
-}
-
-/* Error container styles (if not already present) */
-.error-container {
-    text-align: center;
-    padding: 30px 20px;
-  /*  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);*/
-    border-radius: 15px;
-    color: white;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    margin: 20px auto;
-    max-width: 500px;
-}
-
-.error-icon {
-    font-size: 60px;
-    margin-bottom: 15px;
-}
-
-.error-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.error-message-text {
-    font-size: 16px;
-    margin-bottom: 15px;
-    opacity: 0.9;
-    line-height: 1.4;
-}
-
-.error-instruction {
-    font-size: 14px;
-    margin-bottom: 20px;
-    opacity: 0.8;
-}
-
-.retry-info {
-    font-size: 12px;
-    opacity: 0.6;
-    margin-top: 20px;
-}
-/* Animation for current token */
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.current-token {
-    animation: pulse 2s infinite;
-}
-
-/* Error display styles */
-.error-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 20px;
-    text-align: center;
-    background-color: #f8f9fa;
-    border: 2px solid #e74c3c;
-    border-radius: 10px;
-    margin: 20px;
-}
-
-.error-icon {
-    font-size: 4vw;
-    margin-bottom: 20px;
-    color: #e74c3c;
-}
-
-.error-title {
-    font-size: 3vw;
-    font-weight: bold;
-    color: #c0392b;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-.error-message-text {
-    font-size: 2.5vw;
-    color: #7f8c8d;
-    margin-bottom: 20px;
-    padding: 0 10px;
-    max-width: 90%;
-}
-
-.error-instruction {
-    font-size: 2.2vw;
-    color: #3498db;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.retry-info {
-    font-size: 2vw;
-    color: #95a5a6;
-    font-style: italic;
-    margin-top: 10px;
-}
-
 /* Connection status indicator */
 .connection-status {
     position: fixed;
-    bottom: 10px;
-    left: 10px;
-    width: 15px;
-    height: 15px;
+    bottom: 15px;
+    left: 15px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     z-index: 1000;
+    border: 3px solid white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .connection-status.connected {
     background-color: #2ecc71;
-    box-shadow: 0 0 10px #2ecc71;
+    box-shadow: 0 0 15px #2ecc71;
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0%, 100% { box-shadow: 0 0 15px #2ecc71; }
+    50% { box-shadow: 0 0 25px #2ecc71; }
 }
 
 .connection-status.disconnected {
     background-color: #e74c3c;
-    box-shadow: 0 0 10px #e74c3c;
-    animation: pulse-alert 1s infinite;
+    box-shadow: 0 0 15px #e74c3c;
+    animation: pulse-red 1s infinite;
 }
 
-@keyframes pulse-alert {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+@keyframes pulse-red {
+    0%, 100% { 
+        box-shadow: 0 0 15px #e74c3c;
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 0 25px #e74c3c;
+        transform: scale(1.1);
+    }
 }
 
 /* Responsive adjustments */
 @media (max-width: 1200px) {
-    th, td { padding: 15px 8px; }
+    th, td { 
+        padding: 15px 8px; 
+        height: 90px;
+    }
+    tr { height: 90px; }
+    .current-token { font-size: 5vw; }
     .queued-token, .more-tokens-indicator { 
-        padding: 6px 10px; 
-        min-width: 35px; 
+        padding: 10px 15px; 
+        min-width: 55px; 
+        font-size: 3.5vw;
+    }
+    .error-container {
+        flex-direction: column;
+        padding: 30px 20px;
+        gap: 30px;
+    }
+    .error-content {
+        padding-right: 0;
+        text-align: center;
+    }
+    .qr-section {
+        max-width: 100%;
     }
 }
 
 @media (max-width: 768px) {
     th, td { 
-        padding: 10px 5px; 
-        height: 70px;
+        padding: 12px 6px; 
+        height: 80px;
     }
-    tr { height: 70px; }
-    th { font-size: 3.5vw; }
-    .current-token { font-size: 3.5vw; }
-    .queued-token, .more-tokens-indicator, .no-queue-message { 
-        font-size: 3.5vw;
-        padding: 5px 8px; 
-        min-width: 30px;
+    tr { height: 80px; }
+    th { 
+        font-size: 4vw; 
+        padding: 12px 6px;
     }
+    td:nth-child(1) { font-size: 4.5vw; }
+    .current-token { 
+        font-size: 4.5vw; 
+        padding: 12px;
+        min-width: 100px;
+    }
+    .queued-token, .more-tokens-indicator { 
+        font-size: 4vw;
+        padding: 8px 12px; 
+        min-width: 45px;
+    }
+    .no-queue-message { font-size: 3.5vw; }
+    .error-title { font-size: 5vw; }
+    .error-message-text { font-size: 4vw; }
+    .error-instruction { font-size: 3.8vw; }
+    .qr-title { font-size: 3.8vw; }
+    .qr-note { font-size: 3.2vw; }
+    .retry-info { font-size: 3.5vw; }
+    .scroll-reel-content { font-size: 3.5vw; }
 }
 
-@media (max-height: 800px) {
-    th, td { 
-        padding: 10px 5px;
-        height: 60px;
+@media (max-width: 480px) {
+    .current-token { 
+        font-size: 8vw; 
+        padding: 10px;
+        min-width: 80px;
     }
-    tr { height: 60px; }
-    .queued-tokens-container { max-height: 50px; }
+    .queued-token, .more-tokens-indicator { 
+        font-size: 6vw;
+        padding: 6px 10px;
+        min-width: 40px;
+    }
+    .error-container {
+        padding: 20px 15px;
+    }
 }

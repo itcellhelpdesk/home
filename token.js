@@ -36,6 +36,47 @@ const COMMON_VOICE_FILES = [
     'token_no.wav'
 ];
 
+// Cache QR code image for offline use
+function cacheQRImage() {
+    const qrImage = new Image();
+    qrImage.crossOrigin = "anonymous";
+    qrImage.src = './tokentrackerqr.png';
+    
+    qrImage.onload = function() {
+        console.log('QR code image cached successfully');
+        // Store in localStorage as base64 for offline use
+        const canvas = document.createElement('canvas');
+        canvas.width = qrImage.width;
+        canvas.height = qrImage.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(qrImage, 0, 0);
+        
+        try {
+            const dataURL = canvas.toDataURL('image/png');
+            localStorage.setItem('cachedQRCode', dataURL);
+            console.log('QR code saved to local storage');
+        } catch (error) {
+            console.warn('Could not save QR code to local storage:', error);
+        }
+    };
+    
+    qrImage.onerror = function() {
+        console.warn('Could not cache QR code image');
+        // Create a fallback QR placeholder in storage
+        const fallbackQR = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzM0OThkQiIvPjx0ZXh0IHg9IjEwMCUgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5RUiBDb2RlPC90ZXh0Pjx0ZXh0IHg9IjEwMCUiIHk9IjcwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjZmZmZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+U2NhbiB0byB0cmFjazwvdGV4dD48L3N2Zz4=';
+        localStorage.setItem('cachedQRCode', fallbackQR);
+    };
+}
+
+// Get QR image from cache or fallback
+function getQRImageSource() {
+    const cachedQR = localStorage.getItem('cachedQRCode');
+    if (cachedQR) {
+        return cachedQR;
+    }
+    return './tokentrackerqr.png';
+}
+
 // Preload common voice files
 function preloadCommonVoiceFiles() {
     console.log('Preloading common voice files...');
@@ -206,7 +247,9 @@ function getMaxTokensToShow() {
 async function fetchTokenData() {
     try {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}?key=${API_KEY}`;
-        const response = await fetch(url);
+        const response = await fetch(url, { 
+            signal: AbortSignal.timeout(5000) // 5 second timeout
+        });
         
         if (!response.ok) {
             throw new Error(` API Error: ${response.status}`);
@@ -228,7 +271,7 @@ async function fetchTokenData() {
         
         let errorMessage = 'Unknown error occurred';
         
-        if (error.message.includes('Failed to fetch')) {
+        if (error.name === 'TimeoutError' || error.message.includes('Failed to fetch')) {
             errorMessage = 'Network error: Cannot connect to server';
         } else if (error.message.includes(' API')) {
             errorMessage = 'Server error: ' + error.message;
@@ -362,8 +405,13 @@ function checkForChangesAndAnnounce(newData) {
 function playNotificationBell() {
     return new Promise((resolve) => {
         notificationBell.currentTime = 0;
-        notificationBell.play();
-        notificationBell.onended = resolve;
+        notificationBell.volume = 0.7;
+        notificationBell.play().then(() => {
+            notificationBell.onended = resolve;
+        }).catch(error => {
+            console.warn('Could not play notification bell:', error);
+            resolve();
+        });
     });
 }
 
@@ -426,7 +474,7 @@ function generateTable(data) {
             const remainingTokens = sectionData.queuedTokens.length - maxTokens;
             
             tokensToShow.forEach(token => {
-                queuedTokensHtml += `<span class="queued-token">${token}</span>`;
+                queuedTokensHtml += `<span class="queued-token" aria-label="Token ${token}">${token}</span>`;
             });
             
             if (remainingTokens > 0) {
@@ -438,10 +486,14 @@ function generateTable(data) {
         
         queuedTokensHtml += '</div></div>';
         
+        const currentToken = sectionData.currentToken || '--';
+        const tokenDisplay = currentToken === '--' ? currentToken : 
+            `<div class="current-token" aria-label="Current token ${currentToken}">${currentToken}</div>`;
+        
         html += `
             <tr class="${rowClass}">
-                <td style="font-size: 3.5vw; font-weight: bold;">${section}</td>
-                <td class="current-token">${sectionData.currentToken || '--'}</td>
+                <td style="font-size: 3.8vw; font-weight: 800;" aria-label="Counter ${section}">${section}</td>
+                <td>${tokenDisplay}</td>
                 <td>${queuedTokensHtml}</td>
             </tr>
         `;
@@ -455,32 +507,28 @@ function generateTable(data) {
     return html;
 }
 
-// Show error messages
-// Show error messages with QR code
+// Show error messages with QR code - UPDATED FOR BETTER VISIBILITY
 function showErrorMessage(message) {
+    const qrSource = getQRImageSource();
+    
     const errorHtml = `
         <div class="error-container">
-            <div class="error-icon">⚠️</div>
-            <div class="error-title">Connection Error</div>
-            <div class="error-message-text">${message}</div>
-            <div class="error-instruction">Please check network connection</div>
-            
-            <div class="qr-section">
-                <div class="qr-title">Scan This QR Code to Track Your Token</div>
-                <div class="qr-image-container">
-                    <img src="./tokentrackerqr.png" alt="Token Tracker QR Code" class="qr-image" 
-                         onerror="this.style.display='none'; document.querySelector('.qr-fallback').style.display='block'">
-                    <div class="qr-fallback" style="display: none;">
-                        <div class="qr-placeholder">
-                            <div class="qr-placeholder-text">QR Code Image</div>
-                            <div class="qr-placeholder-url">./tokentrackerqr.png</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="qr-note">Use your phone's camera to scan the QR code</div>
+            <div class="error-content">
+                <div class="error-icon">⚠️</div>
+                <div class="error-title">Connection Error</div>
+                <div class="error-message-text">${message}</div>
+                <div class="error-instruction">Please check your internet connection or contact support</div>
+                <div class="retry-info">Auto-retrying in a few seconds...</div>
             </div>
             
-            <div class="retry-info">Auto-retrying...</div>
+            <div class="qr-section">
+                <div class="qr-title">Scan QR Code for Offline Token Tracking</div>
+                <div class="qr-image-container">
+                    <img src="${qrSource}" alt="Token Tracker QR Code" class="qr-image" 
+                         onerror="this.onerror=null; this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzM0OThkQiIvPjx0ZXh0IHg9IjEwMCUgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZmZmZmYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5RUiBDb2RlPC90ZXh0Pjx0ZXh0IHg9IjEwMCUiIHk9IjcwJSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEyIiBmaWxsPSIjZmZmZmZmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+U2NhbiB0byB0cmFjazwvdGV4dD48L3N2Zz4='">
+                </div>
+                <div class="qr-note">Use your phone's camera to scan and track your token offline</div>
+            </div>
         </div>
     `;
     document.getElementById('token-table').innerHTML = errorHtml;
@@ -493,9 +541,11 @@ function updateConnectionStatus(isConnected, errorMessage = '') {
         if (isConnected) {
             statusElement.className = 'connection-status connected';
             statusElement.title = 'Connected to server';
+            statusElement.setAttribute('aria-label', 'Connected to server');
         } else {
             statusElement.className = 'connection-status disconnected';
             statusElement.title = 'Disconnected: ' + errorMessage;
+            statusElement.setAttribute('aria-label', 'Disconnected: ' + errorMessage);
         }
     }
 }
@@ -508,6 +558,13 @@ async function updateTable() {
         if (data && data.error) {
             updateConnectionStatus(false, data.message);
             showErrorMessage(data.message);
+            
+            // Auto-retry logic
+            if (fetchRetryCount < MAX_RETRIES) {
+                setTimeout(() => {
+                    updateTable();
+                }, 3000);
+            }
             return;
         }
         
@@ -521,6 +578,9 @@ async function updateTable() {
             
             checkForChangesAndAnnounce(data);
             document.getElementById('token-table').innerHTML = generateTable(data);
+            
+            // Reset retry count on successful fetch
+            fetchRetryCount = 0;
         } else {
             updateConnectionStatus(false, 'No data received');
             showErrorMessage('No data received from server');
@@ -537,7 +597,9 @@ async function updateTable() {
 async function updateScrollReel() {
     try {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SETTINGS_SHEET}!C2:C?key=${API_KEY}`;
-        const response = await fetch(url);
+        const response = await fetch(url, { 
+            signal: AbortSignal.timeout(3000) // 3 second timeout for reel
+        });
         
         if (response.ok) {
             const data = await response.json();
@@ -547,10 +609,17 @@ async function updateScrollReel() {
             
             if (content && content.trim() !== '') {
                 contentElement.textContent = content;
+                contentElement.setAttribute('aria-label', 'Announcement: ' + content);
                 container.style.display = 'block';
+                
+                // Add accessibility role
+                container.setAttribute('role', 'marquee');
+                container.setAttribute('aria-live', 'polite');
             } else {
                 container.style.display = 'none';
             }
+        } else {
+            document.getElementById('scroll-reel-container').style.display = 'none';
         }
     } catch (error) {
         console.error('Error fetching scroll reel:', error);
@@ -580,9 +649,13 @@ function optimizeForAndroidTV() {
     // Prevent screen sleep if supported
     if ('wakeLock' in navigator) {
         try {
-            navigator.wakeLock.request('screen');
+            navigator.wakeLock.request('screen').then(wakeLock => {
+                console.log('Wake Lock activated for Android TV');
+            }).catch(err => {
+                console.log('Wake Lock API not supported:', err);
+            });
         } catch (err) {
-            console.log('Wake Lock API not supported');
+            console.log('Wake Lock API error:', err);
         }
     }
     
@@ -590,8 +663,15 @@ function optimizeForAndroidTV() {
     document.addEventListener('keydown', function(e) {
         switch(e.key) {
             case 'Enter':
-                // Force refresh on OK/Enter button
+            case ' ':
+                // Force refresh on OK/Enter/Space button
                 updateTable();
+                updateScrollReel();
+                break;
+            case 'ArrowUp':
+            case 'ArrowDown':
+                // Prevent default scrolling
+                e.preventDefault();
                 break;
         }
     });
@@ -605,21 +685,79 @@ function optimizeForAndroidTV() {
     });
 }
 
+// Enhance accessibility for visually impaired
+function enhanceAccessibility() {
+    // Add ARIA labels to table
+    const tableContainer = document.getElementById('token-table');
+    if (tableContainer) {
+        tableContainer.setAttribute('role', 'region');
+        tableContainer.setAttribute('aria-label', 'Token queue display');
+    }
+    
+    // Add skip to content link
+    const skipLink = document.createElement('a');
+    skipLink.href = '#token-table';
+    skipLink.className = 'skip-link';
+    skipLink.textContent = 'Skip to token table';
+    skipLink.style.cssText = 'position: absolute; top: -40px; left: 0; background: #e74c3c; color: white; padding: 8px; z-index: 10000;';
+    skipLink.addEventListener('focus', function() {
+        this.style.top = '0';
+    });
+    skipLink.addEventListener('blur', function() {
+        this.style.top = '-40px';
+    });
+    
+    document.body.insertBefore(skipLink, document.body.firstChild);
+}
+
 // Initial load
 window.addEventListener('load', function() {
+    // Optimize for Android TV
     optimizeForAndroidTV();
     
+    // Cache QR image immediately
+    cacheQRImage();
+    
+    // Enhance accessibility
+    enhanceAccessibility();
+    
+    // Preload voice files
     preloadCommonVoiceFiles();
     
+    // Initial data load
     updateTable();
     updateScrollReel();
     
+    // Set up regular updates
     setInterval(updateTable, 2000);
     setInterval(updateScrollReel, 30000);
     
+    // Handle window resize for responsive design
     window.addEventListener('resize', function() {
         if (Object.keys(previousTokenData).length > 0) {
             document.getElementById('token-table').innerHTML = generateTable(previousTokenData);
         }
     });
+    
+    // Add offline/online detection
+    window.addEventListener('online', function() {
+        console.log('Network connection restored');
+        updateTable();
+        updateScrollReel();
+    });
+    
+    window.addEventListener('offline', function() {
+        console.log('Network connection lost');
+        updateConnectionStatus(false, 'Network disconnected');
+        showErrorMessage('Network connection lost. Please check your internet connection.');
+    });
 });
+
+// Add timeout support for fetch
+if (!AbortSignal.timeout) {
+    AbortSignal.timeout = function(ms) {
+        const controller = new AbortController();
+        setTimeout(() => controller.abort(new DOMException("TimeoutError", "TimeoutError")), ms);
+        return controller.signal;
+    };
+}
